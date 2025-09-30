@@ -6,6 +6,10 @@ import Search from "./_ui/Search/Search";
 import ArrowBack from "./_ui/ArrowBack/ArrowBack";
 import SearchCard from "./_ui/SearchCard/SearchCard";
 import Menu from "./_ui/Menu/Menu";
+import CreateCollection from "./_ui/CreateCollection/CreateCollection";
+import CollectionCard from "./_ui/CollectionCard/CollectionCard";
+import InputBox from "./_ui/InputBox/InputBox";
+import Modal from "./_ui/Modal/Modal";
 
 function App() {
     return (
