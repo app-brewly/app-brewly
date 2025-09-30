@@ -1,0 +1,17 @@
+.button_container {
+    padding: var(--space-small);
+    border-radius: var(--space-extra-small);
+    background: var(--black-500);
+    height: 32px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.button_cta {
+    color: var(--white);
+    font-family: var(--font-family);
+    font-size: var(--font-size-small);
+}

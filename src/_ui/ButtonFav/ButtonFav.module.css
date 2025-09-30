@@ -1,0 +1,15 @@
+.button_container {
+    display: flex;
+    padding: var(--space-small);
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-small);
+    border-radius: var(--space-extra-small);
+    border: 1px solid var(--black-200);
+    background: var(--white);
+}
+
+.button_icon {
+    width: 16px;
+    height: auto;
+}

@@ -1,0 +1,20 @@
+.search_container {
+    display: flex;
+    height: var(--space-large);
+    padding: var(--space-small) var(--space-regular);
+    align-items: center;
+    gap: var(--space-small);
+    border-radius: var(--space-extra-small);
+    border: 1px solid var(--black-200);
+}
+
+.search_icon {
+    width: 24px;
+    height: 24px;
+}
+
+.search_text {
+    color: var(--black-300);
+    font-family: var(--font-family);
+    font-size: var(--font-size-medium);
+}

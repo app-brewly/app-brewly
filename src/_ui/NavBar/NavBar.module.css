@@ -1,0 +1,15 @@
+.nav_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.nav_logo {
+    width: 180px;
+    height: auto;
+}
+
+.nav_icon {
+    width: 24px;
+    height: 24px;
+}
