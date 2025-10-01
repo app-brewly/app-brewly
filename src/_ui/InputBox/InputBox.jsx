@@ -7,10 +7,7 @@ function InputBox({ inputName, placeholder, type, value, onChange }) {
     });
 
     return (
-        <div className={styles.container}>
-            <div className={InputHeaderClasses}>
-                <p className={styles.input_name}>{inputName}</p>
-            </div>
+        <div className={styles.input_container}>
             <input
                 className={styles.input_box}
                 type='text'

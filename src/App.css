@@ -1,0 +1,4 @@
+.collections_modal_row {
+    display: flex;
+    gap: var(--space-regular);
+}

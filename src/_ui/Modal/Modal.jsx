@@ -1,9 +1,13 @@
 import styles from "./Modal.module.css";
+import classNames from "classnames";
 import CollectionCard from "../CollectionCard/CollectionCard";
 
-function Modal({ children, header }) {
+function Modal({ children, header, type }) {
+    const ContainerClasses = classNames(styles.lower_popup_container, {
+        [styles.center_popup_container]: type === "center",
+    });
     return (
-        <div className={styles.lower_popup_container}>
+        <div className={ContainerClasses}>
             <div className={styles.drag_icon_container}>
                 <svg
                     width='55'

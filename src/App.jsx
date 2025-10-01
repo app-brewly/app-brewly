@@ -10,6 +10,8 @@ import CreateCollection from "./_ui/CreateCollection/CreateCollection";
 import CollectionCard from "./_ui/CollectionCard/CollectionCard";
 import InputBox from "./_ui/InputBox/InputBox";
 import Modal from "./_ui/Modal/Modal";
+import CollectionInfoBox from "./_ui/CollectionInfoBox/CollectionInfoBox";
+import "./App.css";
 
 function App() {
     return (

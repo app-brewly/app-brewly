@@ -1,9 +1,14 @@
 .lower_popup_container {
     padding: var(--space-regular);
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    border-top-left-radius: var(--space-regular);
+    border-top-right-radius: var(--space-regular);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    border: 1px solid var(--black-500);
+}
+.center_popup_container {
+    padding: var(--space-regular);
+    border-radius: var(--space-regular);
     border: 1px solid var(--black-500);
 }
 
