@@ -9,11 +9,13 @@ import Menu from "./_ui/Menu/Menu";
 import Tag from "./_ui/Tag/Tag";
 import BeerSpecs from "./_ui/BeerSpecs/BeerSpecs";
 import Feed from "./_pages/Feed/Feed";
+import SearchPage from "./_pages/SearchPage/SearchPage";
+import BeerInfo from "./_pages/BeerInfo/BeerInfo";
 
 function App() {
     return (
         <div>
-            <Feed />
+            <BeerInfo />
         </div>
     );
 }

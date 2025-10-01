@@ -6,6 +6,7 @@
     gap: var(--space-small);
     border-radius: var(--space-extra-small);
     border: 1px solid var(--black-200);
+    width: 100%;
 }
 
 .search_icon {
