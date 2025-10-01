@@ -1,0 +1,15 @@
+.arrow_container {
+    display: flex;
+    width: 30px;
+    padding: var(--space-small);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-small);
+}
+
+.arrow_icon {
+    fill: var(--black-500);
+    width: 16px;
+    height: 16px;
+}

@@ -1,16 +1,33 @@
-# React + Vite
+# Brewly APP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Beer catalog app to search, save, add, review and organize the beers that the user has tried.
 
-Currently, two official plugins are available:
+# CRUD
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Create: Users can add their own lists/categories.
+Retrieve: Fetch beers from API + display user-created ones.
+Update: Users can update their lists of beer in their personal profile and add reviews of it.
+Delete: Users can remove beers and lists that they no longer want.
 
-## React Compiler
+# Possible pages
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Guest - view the “feed”
+Login / Sign up - create a profile and store info
+Feed - Beers showing in a feed and beers tags
+Beers - Information about IBU, percentage of alcohol, tags and notes of flavours.
+Add - Users can add their own beers.
+Search bar - Search by beer name, list name and tags - lager, pilsen, IPA etc
+Collection - Organize beers into collections
 
-## Expanding the ESLint configuration
+# Possible APIs
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Untappd: https://untappd.com/api/docs
+Wine Vybe: https://winevybe.com/beer-api/
+Open Brewery: https://www.openbrewerydb.org/
+Catalog Beer: https://catalog.beer/api-usage
+
+# Retrievable API Data
+
+Beers names
+Beer images and logos
+Beer information: IBU, percentage of alcohol, categories and notes of flavours.
