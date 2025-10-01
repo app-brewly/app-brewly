@@ -1,12 +1,15 @@
 .card_container {
     display: flex;
-    width: 361px;
-    height: 70px;
-    padding: var(--space-regular);
     flex-direction: row;
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
     gap: var(--space-small);
+
+    width: 100%;
+    height: 70px;
+
+    padding: var(--space-regular);
+
     border-radius: var(--space-extra-small);
     background: var(--white);
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
@@ -17,6 +20,7 @@
     flex-direction: row;
     gap: var(--space-small);
 }
+
 .card_image {
     height: 46px;
     width: auto;
