@@ -50,3 +50,11 @@
 
     gap: var(--space-small);
 }
+
+.buttons_hidden {
+    display: none;
+}
+
+.subtitle_hidden {
+    display: none;
+}

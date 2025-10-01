@@ -2,8 +2,16 @@ import styles from "./BeerCard.module.css";
 import ButtonFav from "../ButtonFav/ButtonFav";
 import ButtonKnowMore from "../ButtonKnowMore/ButtonKnowMore.jsx";
 import beercan from "../../assets/beercan.png";
+import classNames from "classnames";
 
-function BeerCard() {
+function BeerCard({ type }) {
+    const ButtonClasses = classNames(styles.button_container, {
+        [styles.buttons_hidden]: type === "collections",
+    });
+    const SubtitleClasses = classNames(styles.card_subtitle, {
+        [styles.subtitle_hidden]: type === "collections",
+    });
+
     return (
         <div className={styles.card_container}>
             <img
@@ -13,10 +21,10 @@ function BeerCard() {
             />
             <div className={styles.card_text}>
                 <h3 className={styles.card_title}>Heineken</h3>
-                <p className={styles.card_subtitle}>Heineken N.V.</p>
+                <p className={SubtitleClasses}>Heineken N.V.</p>
             </div>
 
-            <div className={styles.button_container}>
+            <div className={ButtonClasses}>
                 <ButtonFav />
                 <ButtonKnowMore />
             </div>

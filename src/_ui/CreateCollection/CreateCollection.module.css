@@ -1,0 +1,14 @@
+.add_button_container {
+    background-color: var(--black-500);
+    padding: var(--space-small);
+    width: 56px;
+    height: 56px;
+    border-radius: var(--space-small);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.collection_header {
+    color: var(--black-500);
+}

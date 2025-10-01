@@ -1,0 +1,26 @@
+.lower_popup_container {
+    padding: var(--space-regular);
+    border-top-left-radius: var(--space-regular);
+    border-top-right-radius: var(--space-regular);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid var(--black-500);
+}
+.center_popup_container {
+    padding: var(--space-regular);
+    border-radius: var(--space-regular);
+    border: 1px solid var(--black-500);
+}
+
+.drag_icon_container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.popup_header {
+    text-align: center;
+    font-family: var(--font-family);
+    font-size: var(--font-size-regular);
+    font-weight: var(--font-weight-bold);
+}
