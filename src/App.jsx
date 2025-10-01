@@ -6,12 +6,14 @@ import Search from "./_ui/Search/Search";
 import ArrowBack from "./_ui/ArrowBack/ArrowBack";
 import SearchCard from "./_ui/SearchCard/SearchCard";
 import Menu from "./_ui/Menu/Menu";
+import Tag from "./_ui/Tag/Tag";
+import BeerSpecs from "./_ui/BeerSpecs/BeerSpecs";
+import Feed from "./_pages/Feed/Feed";
 
 function App() {
     return (
         <div>
-            <h1>Brewly app!</h1>
-            <Menu />
+            <Feed />
         </div>
     );
 }
