@@ -12,12 +12,16 @@ import InputBox from "./_ui/InputBox/InputBox";
 import Modal from "./_ui/Modal/Modal";
 import CollectionInfoBox from "./_ui/CollectionInfoBox/CollectionInfoBox";
 import "./App.css";
+import Tag from "./_ui/Tag/Tag";
+import BeerSpecs from "./_ui/BeerSpecs/BeerSpecs";
+import Feed from "./_pages/Feed/Feed";
+import SearchPage from "./_pages/SearchPage/SearchPage";
+import BeerInfo from "./_pages/BeerInfo/BeerInfo";
 
 function App() {
     return (
         <div>
-            <h1>Brewly app!</h1>
-            <Menu />
+            <BeerInfo />
         </div>
     );
 }
