@@ -18,7 +18,7 @@ function Menu() {
 
             <a
                 className={styles.navbar_item}
-                href='/'>
+                href='/Collections'>
                 <svg
                     className={styles.navbar_icon}
                     viewBox='0 0 20 20'

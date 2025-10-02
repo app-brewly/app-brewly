@@ -1,4 +1,12 @@
 import { useState } from "react";
+//Imports supporting navigation
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Collections from "./_pages/Collections/Collections";
+import Feed from "./_pages/Feed/Feed";
+import BeerInfo from "./_pages/BeerInfo/BeerInfo";
+import CollectionItems from "./_pages/CollectionItems/CollectionItems";
+import CollectionInfo from "./_pages/CollectionInfo/CollectionInfo";
+
 import Button from "./_ui/Button/Button";
 import BeerCard from "./_ui/BeerCard/BeerCard";
 import NavBar from "./_ui/NavBar/NavBar";
@@ -14,14 +22,14 @@ import CollectionInfoBox from "./_ui/CollectionInfoBox/CollectionInfoBox";
 import "./App.css";
 import Tag from "./_ui/Tag/Tag";
 import BeerSpecs from "./_ui/BeerSpecs/BeerSpecs";
-import Feed from "./_pages/Feed/Feed";
+
 import SearchPage from "./_pages/SearchPage/SearchPage";
-import BeerInfo from "./_pages/BeerInfo/BeerInfo";
 
 function App() {
     return (
         <div>
-            <BeerInfo />
+            {/* <BeerInfo /> */}
+            <CollectionInfo />
         </div>
     );
 }
