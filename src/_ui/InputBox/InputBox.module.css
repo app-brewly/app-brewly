@@ -8,10 +8,8 @@
 }
 
 .input_container {
-    width: 361px;
+    width: 100%;
     height: var(--space-large);
-    padding-left: var(--space-regular);
-    padding-right: var(--space-regular);
     display: flex;
     flex-direction: column;
     gap: var(--space-extra-small);
@@ -28,6 +26,18 @@
     font-family: var(--font-family);
     font-size: var(--font-size-regular);
     border: 1px solid var(--black-500);
+    color: var(--black-100);
+    width: 100%;
+    height: var(--space-large);
+    border-radius: var(--space-small);
+    align-items: center;
+    display: flex;
+    padding: var(--space-regular);
+}
+.dropdown_box {
+    font-family: var(--font-family);
+    font-size: var(--font-size-regular);
+    border: 1px solid var(--black-500);
     color: var(--grey-400);
     width: 100%;
     height: var(--space-large);
@@ -35,4 +45,10 @@
     align-items: center;
     display: flex;
     padding: var(--space-regular);
+}
+.option_box {
+    width: 168px;
+    height: 36px;
+    padding-top: var(--space-small);
+    padding-bottom: var(--space-small);
 }

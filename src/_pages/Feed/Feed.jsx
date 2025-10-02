@@ -43,26 +43,31 @@ function Feed() {
                         <BeerCard
                             type='feed'
                             onKnowMoreClick={handleKnowMore}
+                            onFavClick={handleFav}
                         />
                     </div>
                     <div className={styles.page_row}>
                         <BeerCard
                             type='feed'
                             onKnowMoreClick={handleKnowMore}
+                            onFavClick={handleFav}
                         />
                         <BeerCard
                             type='feed'
                             onKnowMoreClick={handleKnowMore}
+                            onFavClick={handleFav}
                         />
                     </div>
                     <div className={styles.page_row}>
                         <BeerCard
                             type='feed'
                             onKnowMoreClick={handleKnowMore}
+                            onFavClick={handleFav}
                         />
                         <BeerCard
                             type='feed'
                             onKnowMoreClick={handleKnowMore}
+                            onFavClick={handleFav}
                         />
                     </div>
                     {isModalOpen && (

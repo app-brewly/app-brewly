@@ -6,9 +6,23 @@ import ButtonFav from "../../_ui/ButtonFav/ButtonFav";
 import Tag from "../../_ui/Tag/Tag";
 import BeerSpecs from "../../_ui/BeerSpecs/BeerSpecs";
 import beercan from "../../assets/beercan.png";
+import Modal from "../../_ui/Modal/Modal";
+import CollectionCard from "../../_ui/CollectionCard/CollectionCard";
+import CreateCollection from "../../_ui/CreateCollection/CreateCollection";
+
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function BeerInfo() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+    const handleFav = () => {
+        setIsModalOpen(true);
+    };
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -24,8 +38,21 @@ function BeerInfo() {
                     <p className={styles.page_brewer}> Heineken N.V.</p>
                 </div>
 
-                <ButtonFav />
+                <ButtonFav onClick={handleFav} />
             </div>
+            {isModalOpen && (
+                <Modal
+                    header='Save it to your Collection'
+                    onClose={handleCloseModal}>
+                    <CreateCollection type='button' />
+                    <CollectionCard
+                        collection_name='IPA'
+                        onClick={handleCloseModal}
+                    />
+                    <CollectionCard collection_name='Artesanal' />
+                    <CollectionCard collection_name='Favorites' />
+                </Modal>
+            )}
             <div className={styles.page_content}>
                 <img
                     className={styles.page_image}

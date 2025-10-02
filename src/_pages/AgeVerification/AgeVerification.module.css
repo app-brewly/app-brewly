@@ -32,3 +32,10 @@
     flex-direction: column;
     gap: var(--space-small);
 }
+
+.description {
+    position: absolute;
+    bottom: var(--space-regular);
+    text-align: center;
+    font-size: var(--font-size-small);
+}

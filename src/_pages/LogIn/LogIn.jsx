@@ -8,7 +8,7 @@ import StatusBar from "../../_ui/StatusBar/StatusBar";
 function LogIn() {
     const navigate = useNavigate();
     const handlelogIn = () => {
-        navigate("/LogIn");
+        navigate("/CodeVerification");
     };
     return (
         <div className={styles.page_container}>
@@ -16,9 +16,10 @@ function LogIn() {
                 <StatusBar />
             </div>
             <img src='/Image_Placeholder_.png'></img>
+
             <div className={styles.info_container}>
-                <h1 className={styles.title}>Sign Up or Log In</h1>
                 <div className={styles.explainer_text_container}>
+                    <h1 className={styles.title}>Sign Up or Log In</h1>
                     <p className={styles.explainer_header}>
                         Lorem ipsum dolor sit amet.
                     </p>
@@ -32,7 +33,7 @@ function LogIn() {
                     <InputBox
                         type='regular'
                         placeholder='Birthday'
-                        value='email'
+                        value='Email'
                     />
                 </div>
                 <Button
@@ -40,6 +41,10 @@ function LogIn() {
                     onClick={handlelogIn}
                 />
             </div>
+            <p className={styles.description}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+                suscipit nunc est, in venenatis ipsum vulputate et.
+            </p>
         </div>
     );
 }

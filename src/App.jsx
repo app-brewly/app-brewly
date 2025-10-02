@@ -33,14 +33,21 @@ function App() {
         <div>
             <Router>
                 <Routes>
+                    {/* This is makes AgeVerification the first page */}
                     <Route
                         path='/'
+                        element={<AgeVerification />}
+                    />
+                    {/* This is creating routes for all the other pages */}
+                    <Route
+                        path='/Feed'
                         element={<Feed />}
                     />
                     <Route
                         path='/CodeVerification'
                         element={<CodeVerification />}
                     />
+
                     <Route
                         path='/LogIn'
                         element={<LogIn />}

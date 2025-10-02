@@ -30,7 +30,6 @@
 .input_container {
     display: flex;
     flex-direction: column;
-    gap: var(--space-small);
 }
 .explainer_text_container {
     text-align: center;
@@ -41,5 +40,12 @@
 }
 .explainer_info {
     font-family: var(--font-family);
+    font-size: var(--font-size-small);
+}
+
+.description {
+    position: absolute;
+    bottom: var(--space-regular);
+    text-align: center;
     font-size: var(--font-size-small);
 }
