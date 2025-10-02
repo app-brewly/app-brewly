@@ -7,8 +7,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: var(--space-small);
 }
 
 .collection_header {
     color: var(--black-500);
+}
+
+.create_collection_container {
+    display: flex;
+    margin-bottom: var(--space-small);
 }

@@ -10,7 +10,7 @@ function CollectionInfo() {
         <div className={styles.page_container}>
             <div className={styles.page_header}>
                 <StatusBar />
-                <NavBar />
+                <NavBar type='collections menu' />
             </div>
 
             <div className={styles.page_content}>

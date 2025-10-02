@@ -1,8 +1,10 @@
 import styles from "./ButtonFav.module.css";
 
-function ButtonFav() {
+function ButtonFav({ onClick }) {
     return (
-        <div className={styles.button_container}>
+        <div
+            className={styles.button_container}
+            onClick={onClick}>
             <svg
                 className={styles.button_icon}
                 xmlns='http://www.w3.org/2000/svg'

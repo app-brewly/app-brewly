@@ -6,6 +6,7 @@ import ButtonFav from "../../_ui/ButtonFav/ButtonFav";
 import Tag from "../../_ui/Tag/Tag";
 import BeerSpecs from "../../_ui/BeerSpecs/BeerSpecs";
 import beercan from "../../assets/beercan.png";
+import { useNavigate } from "react-router-dom";
 
 function BeerInfo() {
     return (
