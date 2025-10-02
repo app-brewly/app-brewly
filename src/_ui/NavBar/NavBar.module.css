@@ -4,6 +4,33 @@
     align-items: flex-start;
     width: 393px;
 }
+.add_collection_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 393px;
+    align-items: center;
+    padding: var(--space-small);
+}
+.menu_collection_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 393px;
+    align-items: center;
+    padding: var(--space-small);
+}
+.title {
+    color: var(--black-500);
+    font-size: var(--font-size-medium);
+    font-style: var(--font-style-normal);
+    font-weight: var(--font-weight-bold);
+    margin: 0px;
+    padding: 0px;
+    line-height: 1;
+}
 
 .nav_logo {
     width: 180px;

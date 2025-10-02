@@ -1,8 +1,10 @@
 import style from "./ButtonKnowMore.module.css";
 
-function ButtonKnowMore() {
+function ButtonKnowMore({ onClick }) {
     return (
-        <div className={style.button_container}>
+        <div
+            className={style.button_container}
+            onClick={onClick}>
             <p className={style.button_cta}>Know More</p>
             <svg
                 xmlns='http://www.w3.org/2000/svg'

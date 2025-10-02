@@ -28,8 +28,32 @@ import SearchPage from "./_pages/SearchPage/SearchPage";
 function App() {
     return (
         <div>
-            {/* <BeerInfo /> */}
-            <CollectionInfo />
+            <Router>
+                <Routes>
+                    <Route
+                        path='/'
+                        element={<Feed />}
+                    />
+
+                    <Route
+                        path='/collections'
+                        element={<Collections />}
+                    />
+                    <Route
+                        path='/CollectionInfo'
+                        element={<CollectionInfo />}
+                    />
+                    <Route
+                        path='/CollectionItems'
+                        element={<CollectionItems />}
+                    />
+                    <Route
+                        path='/BeerInfo'
+                        element={<BeerInfo />}
+                    />
+                </Routes>
+            </Router>
+            {/* <Collections /> */}
         </div>
     );
 }

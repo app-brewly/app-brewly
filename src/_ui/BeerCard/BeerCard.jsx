@@ -3,7 +3,13 @@ import ButtonFav from "../ButtonFav/ButtonFav";
 import ButtonKnowMore from "../ButtonKnowMore/ButtonKnowMore.jsx";
 import beercan from "../../assets/beercan.png";
 
-function BeerCard({ type, collection_name }) {
+function BeerCard({
+    type,
+    collection_name,
+    onCollectionClick,
+    onKnowMoreClick,
+    onFavClick,
+}) {
     return (
         <div>
             {type === "feed" && (
@@ -18,13 +24,15 @@ function BeerCard({ type, collection_name }) {
                         <p className={styles.card_subtitle}>Heineken N.V.</p>
                     </div>
                     <div className={styles.button_container}>
-                        <ButtonFav />
-                        <ButtonKnowMore />
+                        <ButtonFav onClick={onFavClick} />
+                        <ButtonKnowMore onClick={onKnowMoreClick} />
                     </div>
                 </div>
             )}
             {type === "collections" && (
-                <div className={styles.collection_container}>
+                <div
+                    className={styles.collection_container}
+                    onClick={onCollectionClick}>
                     <img
                         src={beercan}
                         alt='Heineken beer can'
@@ -47,7 +55,7 @@ function BeerCard({ type, collection_name }) {
                         <p className={styles.card_subtitle}>Heineken N.V.</p>
                     </div>
                     <div className={styles.button_container}>
-                        <ButtonKnowMore />
+                        <ButtonKnowMore onClick={onKnowMoreClick} />
                     </div>
                 </div>
             )}
