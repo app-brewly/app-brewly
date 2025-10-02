@@ -2,32 +2,55 @@ import styles from "./BeerCard.module.css";
 import ButtonFav from "../ButtonFav/ButtonFav";
 import ButtonKnowMore from "../ButtonKnowMore/ButtonKnowMore.jsx";
 import beercan from "../../assets/beercan.png";
-import classNames from "classnames";
 
-function BeerCard({ type }) {
-    const ButtonClasses = classNames(styles.button_container, {
-        [styles.buttons_hidden]: type === "collections",
-    });
-    const SubtitleClasses = classNames(styles.card_subtitle, {
-        [styles.subtitle_hidden]: type === "collections",
-    });
-
+function BeerCard({ type, collection_name }) {
     return (
-        <div className={styles.card_container}>
-            <img
-                src={beercan}
-                alt='Heineken beer can'
-                className={styles.card_image}
-            />
-            <div className={styles.card_text}>
-                <h3 className={styles.card_title}>Heineken</h3>
-                <p className={SubtitleClasses}>Heineken N.V.</p>
-            </div>
-
-            <div className={ButtonClasses}>
-                <ButtonFav />
-                <ButtonKnowMore />
-            </div>
+        <div>
+            {type === "feed" && (
+                <div className={styles.card_container}>
+                    <img
+                        src={beercan}
+                        alt='Heineken beer can'
+                        className={styles.card_image}
+                    />
+                    <div className={styles.card_text}>
+                        <h3 className={styles.card_title}>Heineken</h3>
+                        <p className={styles.card_subtitle}>Heineken N.V.</p>
+                    </div>
+                    <div className={styles.button_container}>
+                        <ButtonFav />
+                        <ButtonKnowMore />
+                    </div>
+                </div>
+            )}
+            {type === "collections" && (
+                <div className={styles.collection_container}>
+                    <img
+                        src={beercan}
+                        alt='Heineken beer can'
+                        className={styles.card_image}
+                    />
+                    <div className={styles.card_text}>
+                        <h3 className={styles.card_title}>{collection_name}</h3>
+                    </div>
+                </div>
+            )}
+            {type === "collection info" && (
+                <div className={styles.card_container}>
+                    <img
+                        src={beercan}
+                        alt='Heineken beer can'
+                        className={styles.card_image}
+                    />
+                    <div className={styles.card_text}>
+                        <h3 className={styles.card_title}>Heineken</h3>
+                        <p className={styles.card_subtitle}>Heineken N.V.</p>
+                    </div>
+                    <div className={styles.button_container}>
+                        <ButtonKnowMore />
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

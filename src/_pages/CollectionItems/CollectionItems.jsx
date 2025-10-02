@@ -1,10 +1,11 @@
 import StatusBar from "../../_ui/StatusBar/StatusBar";
 import NavBar from "../../_ui/NavBar/NavBar";
-import BeerCard from "../../_ui/BeerCard/BeerCard";
+import CollectionCard from "../../_ui/CollectionCard/CollectionCard";
 import Menu from "../../_ui/Menu/Menu";
-import styles from "./Feed.module.css";
+import styles from "./CollectionItems.module.css";
+import BeerCard from "../../_ui/BeerCard/BeerCard";
 
-function Feed() {
+function CollectionItems() {
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -15,16 +16,12 @@ function Feed() {
             <div className={styles.page_content}>
                 <div className={styles.page_column}>
                     <div className={styles.page_row}>
-                        <BeerCard type='feed' />
-                        <BeerCard type='feed' />
+                        <BeerCard type='collection info' />
+                        <BeerCard type='collection info' />
                     </div>
                     <div className={styles.page_row}>
-                        <BeerCard type='feed' />
-                        <BeerCard type='feed' />
-                    </div>
-                    <div className={styles.page_row}>
-                        <BeerCard type='feed' />
-                        <BeerCard type='feed' />
+                        <BeerCard type='collection info' />
+                        <BeerCard type='collection info' />
                     </div>
                 </div>
             </div>
@@ -34,4 +31,4 @@ function Feed() {
     );
 }
 
-export default Feed;
+export default CollectionItems;
