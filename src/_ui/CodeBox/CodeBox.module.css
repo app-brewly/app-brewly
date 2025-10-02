@@ -1,0 +1,13 @@
+.box {
+    height: 44px;
+    width: 60px;
+    border-radius: var(--space-small);
+    border: 1px solid var(--black-500);
+    text-align: center;
+}
+.code_container {
+    padding: var(--space-regular);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-small);
+}

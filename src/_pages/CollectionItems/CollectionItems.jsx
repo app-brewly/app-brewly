@@ -6,11 +6,14 @@ import Modal from "../../_ui/Modal/Modal";
 import Button from "../../_ui/Button/Button";
 import styles from "./CollectionItems.module.css";
 import BeerCard from "../../_ui/BeerCard/BeerCard";
+import DropdownMenu from "../../_ui/DropdownMenu/DropDownMenu";
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function CollectionItems() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const navigate = useNavigate();
 
     const handleKnowMore = () => {
@@ -24,6 +27,7 @@ function CollectionItems() {
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
+
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -31,7 +35,6 @@ function CollectionItems() {
                 <NavBar
                     type='collections menu'
                     collection_name='Artesanal'
-                    onOptionsClick={handleOpenModal}
                 />
             </div>
             {isModalOpen && (

@@ -2,6 +2,15 @@ import classNames from "classnames";
 import styles from "./InputBox.module.css";
 
 function InputBox({ inputName, placeholder, type, value, onChange }) {
+    const countries = [
+        { value: "ca", label: "Canada", flag: "🇨🇦" },
+        { value: "br", label: "Brazil", flag: "🇧🇷" },
+        { value: "uk", label: "United Kingdom", flag: "🇬🇧" },
+        { value: "de", label: "Germany", flag: "🇩🇪" },
+        { value: "mx", label: "Mexico", flag: "🇲🇽" },
+        { value: "pt", label: "Portugal", flag: "🇵🇹" },
+        { value: "es", label: "Spain", flag: "🇪🇸" },
+    ];
     return (
         <>
             {type === "regular" && (

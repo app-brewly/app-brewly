@@ -23,8 +23,9 @@ function Collections() {
         setIsModalOpen(false);
     };
     const handleOpenInfo = () => {
-        navigate("/CollectionInfo");
+        navigate("/CollectionItems");
     };
+
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -33,25 +34,24 @@ function Collections() {
                     type='collections add'
                     onAddClick={handleOpenModal}
                 />
+
                 {isModalOpen && (
-                    <>
-                        <Modal
-                            header='Save it to your Collection'
-                            onClose={handleCloseModal}>
-                            <InputBox type='regular' />
-                            <div className={styles.button_row}>
-                                <Button
-                                    value='Cancel'
-                                    type='secondary'
-                                    onClick={handleCloseModal}
-                                />
-                                <Button
-                                    value='Save'
-                                    onClick={handleCloseModal}
-                                />
-                            </div>
-                        </Modal>
-                    </>
+                    <Modal
+                        header='Save it to your Collection'
+                        onClose={handleCloseModal}>
+                        <InputBox type='regular' />
+                        <div className={styles.button_row}>
+                            <Button
+                                value='Cancel'
+                                type='secondary'
+                                onClick={handleCloseModal}
+                            />
+                            <Button
+                                value='Save'
+                                onClick={handleCloseModal}
+                            />
+                        </div>
+                    </Modal>
                 )}
             </div>
 
