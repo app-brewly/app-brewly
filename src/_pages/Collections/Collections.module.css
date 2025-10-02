@@ -32,6 +32,7 @@
 
 .button_row {
     display: flex;
+    padding-top: var(--space-regular);
     flex-direction: row;
     gap: var(--space-regular);
 }
