@@ -29,10 +29,10 @@
     font-size: var(--font-size-regular);
     border: 1px solid var(--black-500);
     color: var(--grey-400);
-    width: auto;
+    width: 100%;
     height: var(--space-large);
-    margin-bottom: var(--space-regular);
     border-radius: var(--space-small);
     align-items: center;
     display: flex;
+    padding: var(--space-regular);
 }

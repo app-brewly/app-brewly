@@ -38,7 +38,7 @@ function Collections() {
                         <Modal
                             header='Save it to your Collection'
                             onClose={handleCloseModal}>
-                            <InputBox />
+                            <InputBox type='regular' />
                             <div className={styles.button_row}>
                                 <Button
                                     value='Cancel'

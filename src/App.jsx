@@ -6,6 +6,9 @@ import Feed from "./_pages/Feed/Feed";
 import BeerInfo from "./_pages/BeerInfo/BeerInfo";
 import CollectionItems from "./_pages/CollectionItems/CollectionItems";
 import CollectionInfo from "./_pages/CollectionInfo/CollectionInfo";
+import AgeVerification from "./_pages/AgeVerification/AgeVerification";
+import CodeVerification from "./_pages/CodeVerification/CodeVerification";
+import LogIn from "./_pages/LogIn/LogIn";
 
 import Button from "./_ui/Button/Button";
 import BeerCard from "./_ui/BeerCard/BeerCard";
@@ -34,7 +37,14 @@ function App() {
                         path='/'
                         element={<Feed />}
                     />
-
+                    <Route
+                        path='/CodeVerification'
+                        element={<CodeVerification />}
+                    />
+                    <Route
+                        path='/LogIn'
+                        element={<LogIn />}
+                    />
                     <Route
                         path='/collections'
                         element={<Collections />}
