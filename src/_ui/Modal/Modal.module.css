@@ -7,8 +7,7 @@
     background: white;
     border-radius: var(--space-regular) var(--space-regular) 0 0;
     padding: var(--space-regular);
-    width: fit-content;
-    max-height: 70vh;
+    max-height: fit-content;
     overflow-y: auto;
     z-index: 1;
     animation: slideUp 0.3s ease-out;
@@ -22,16 +21,6 @@
     to {
         transform: translateY(0);
     }
-}
-.center_popup_container {
-    background: white;
-    padding: var(--space-regular);
-    border-radius: var(--space-regular);
-    border: 1px solid var(--black-500);
-    width: fit-content;
-    width: 90%;
-    z-index: 1;
-    position: fixed;
 }
 
 .drag_icon_container {
