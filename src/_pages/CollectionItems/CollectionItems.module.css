@@ -29,3 +29,21 @@
     flex-direction: row;
     gap: var(--space-regular);
 }
+
+.collections_menu {
+    position: absolute;
+    right: 0;
+    top: 10%;
+}
+
+.overlay {
+    width: 393px;
+    height: 852px;
+    position: fixed;
+}
+
+.button_row {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-regular);
+}

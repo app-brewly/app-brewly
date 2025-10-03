@@ -3,13 +3,8 @@ import { useNavigate } from "react-router-dom";
 import DropdownMenu from "../DropdownMenu/DropDownMenu";
 import { useState } from "react";
 
-function NavBar({ type, collection_name, onAddClick }) {
+function NavBar({ type, collection_name, onAddClick, onOptionsClick }) {
     const navigate = useNavigate();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const handleOptionsClick = () => {
-        setIsMenuOpen((prev) => !prev);
-    };
 
     return (
         <div>
@@ -113,28 +108,12 @@ function NavBar({ type, collection_name, onAddClick }) {
                         viewBox='0 0 19 13'
                         fill='none'
                         xmlns='http://www.w3.org/2000/svg'
-                        onClick={handleOptionsClick}>
+                        onClick={onOptionsClick}>
                         <path
                             d='M1.92114 12.5C1.63781 12.5 1.40031 12.4042 1.20864 12.2125C1.01698 12.0208 0.921143 11.7833 0.921143 11.5C0.921143 11.2167 1.01698 10.9792 1.20864 10.7875C1.40031 10.5958 1.63781 10.5 1.92114 10.5H17.9211C18.2045 10.5 18.442 10.5958 18.6336 10.7875C18.8253 10.9792 18.9211 11.2167 18.9211 11.5C18.9211 11.7833 18.8253 12.0208 18.6336 12.2125C18.442 12.4042 18.2045 12.5 17.9211 12.5H1.92114ZM1.92114 7.5C1.63781 7.5 1.40031 7.40417 1.20864 7.2125C1.01698 7.02083 0.921143 6.78333 0.921143 6.5C0.921143 6.21667 1.01698 5.97917 1.20864 5.7875C1.40031 5.59583 1.63781 5.5 1.92114 5.5H17.9211C18.2045 5.5 18.442 5.59583 18.6336 5.7875C18.8253 5.97917 18.9211 6.21667 18.9211 6.5C18.9211 6.78333 18.8253 7.02083 18.6336 7.2125C18.442 7.40417 18.2045 7.5 17.9211 7.5H1.92114ZM1.92114 2.5C1.63781 2.5 1.40031 2.40417 1.20864 2.2125C1.01698 2.02083 0.921143 1.78333 0.921143 1.5C0.921143 1.21667 1.01698 0.979167 1.20864 0.7875C1.40031 0.595833 1.63781 0.5 1.92114 0.5H17.9211C18.2045 0.5 18.442 0.595833 18.6336 0.7875C18.8253 0.979167 18.9211 1.21667 18.9211 1.5C18.9211 1.78333 18.8253 2.02083 18.6336 2.2125C18.442 2.40417 18.2045 2.5 17.9211 2.5H1.92114Z'
                             fill='#141414'
                         />
                     </svg>
-                    {isMenuOpen && (
-                        <DropdownMenu
-                            type='icon_dropdown'
-                            list={[
-                                { value: "edit", label: "Edit Collection" },
-                                { value: "delete", label: "Delete Collection" },
-                            ]}
-                            onSelect={(option) => {
-                                if (option.value === "edit")
-                                    console.log("Edit clicked");
-                                if (option.value === "delete")
-                                    console.log("Delete clicked");
-                                setIsMenuOpen(false);
-                            }}
-                        />
-                    )}
                 </div>
             )}
         </div>
