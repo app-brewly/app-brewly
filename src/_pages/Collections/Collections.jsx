@@ -23,7 +23,7 @@ function Collections() {
         setIsModalOpen(false);
     };
     const handleOpenInfo = () => {
-        navigate("/CollectionInfo");
+        navigate("/CollectionItems");
     };
     return (
         <div className={styles.page_container}>
