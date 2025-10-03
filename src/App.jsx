@@ -9,16 +9,15 @@ import StepTwo from "./_pages/Onboarding/StepTwo/StepTwo";
 import StepThree from "./_pages/Onboarding/StepThree/StepThree";
 import StepFour from "./_pages/Onboarding/StepFour/StepFour";
 import StepFive from "./_pages/Onboarding/StepFive/StepFive";
+import AgeVerification from "./_pages/AgeVerification/AgeVerification";
+import LogIn from "./_pages/LogIn/LogIn";
+import CodeVerification from "./_pages/CodeVerification/CodeVerification";
 
 import Collections from "./_pages/Collections/Collections";
 import Feed from "./_pages/Feed/Feed";
 import BeerInfo from "./_pages/BeerInfo/BeerInfo";
 import CollectionItems from "./_pages/CollectionItems/CollectionItems";
 import CollectionInfo from "./_pages/CollectionInfo/CollectionInfo";
-import AgeVerification from "./_pages/AgeVerification/AgeVerification";
-import CodeVerification from "./_pages/CodeVerification/CodeVerification";
-import LogIn from "./_pages/LogIn/LogIn";
-
 import SearchPage from "./_pages/SearchPage/SearchPage";
 
 function App() {

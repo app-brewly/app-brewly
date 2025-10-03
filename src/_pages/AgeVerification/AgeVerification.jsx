@@ -3,6 +3,7 @@ import styles from "./AgeVerification.module.css";
 import InputBox from "../../_ui/InputBox/InputBox";
 import Button from "../../_ui/Button/Button";
 import DropdownMenu from "../../_ui/DropdownMenu/DropDownMenu";
+import illustration6 from "../../assets/illustration6.svg";
 
 import StatusBar from "../../_ui/StatusBar/StatusBar";
 
@@ -12,20 +13,23 @@ function AgeVerification() {
         navigate("/LogIn");
     };
     const countries = [
-        { value: "ca", label: "Canada", flag: "🇨🇦" },
-        { value: "br", label: "Brazil", flag: "🇧🇷" },
-        { value: "uk", label: "United Kingdom", flag: "🇬🇧" },
-        { value: "de", label: "Germany", flag: "🇩🇪" },
-        { value: "mx", label: "Mexico", flag: "🇲🇽" },
-        { value: "pt", label: "Portugal", flag: "🇵🇹" },
-        { value: "es", label: "Spain", flag: "🇪🇸" },
+        { value: "ca", label: "Canada ", flag: "🇨🇦" },
+        { value: "br", label: "Brazil ", flag: "🇧🇷" },
+        { value: "uk", label: "United Kingdom ", flag: "🇬🇧" },
+        { value: "de", label: "Germany ", flag: "🇩🇪" },
+        { value: "mx", label: "Mexico ", flag: "🇲🇽" },
+        { value: "pt", label: "Portugal ", flag: "🇵🇹" },
+        { value: "es", label: "Spain ", flag: "🇪🇸" },
     ];
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
                 <StatusBar />
             </div>
-            <img src='/Image_Placeholder_.png'></img>
+            <img
+                src={illustration6}
+                alt='Beer and opener'
+            />
             <div className={styles.info_container}>
                 <h1 className={styles.title}>
                     Lets make sure
@@ -44,12 +48,14 @@ function AgeVerification() {
                 </div>
                 <Button
                     value='Verify'
+                    type='primary'
                     onClick={handleAgeVerify}
                 />
             </div>
             <p className={styles.description}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                suscipit nunc est, in venenatis ipsum vulputate et.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <br />
+                Mauris suscipit nunc est, in venenatis ipsum vulputate et.
             </p>
         </div>
     );

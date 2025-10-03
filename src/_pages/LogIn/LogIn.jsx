@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./LogIn.module.css";
 import InputBox from "../../_ui/InputBox/InputBox";
 import Button from "../../_ui/Button/Button";
+import logoverticalbg from "../../assets/logoverticalbg.svg";
 
 import StatusBar from "../../_ui/StatusBar/StatusBar";
 
@@ -15,7 +16,10 @@ function LogIn() {
             <div className={styles.page_header}>
                 <StatusBar />
             </div>
-            <img src='/Image_Placeholder_.png'></img>
+            <img
+                src={logoverticalbg}
+                alt='Brewly vertical logo with dark green background'
+            />
 
             <div className={styles.info_container}>
                 <div className={styles.explainer_text_container}>
@@ -38,12 +42,14 @@ function LogIn() {
                 </div>
                 <Button
                     value='Login'
+                    type='primary'
                     onClick={handlelogIn}
                 />
             </div>
             <p className={styles.description}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                suscipit nunc est, in venenatis ipsum vulputate et.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <br />
+                Mauris suscipit nunc est, in venenatis ipsum vulputate et.
             </p>
         </div>
     );
