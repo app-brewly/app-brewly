@@ -26,14 +26,16 @@ function CodeVerification() {
                 <CodeBox />
                 <Button
                     value='Enter'
+                    type='primary'
                     onClick={handleVerificationCode}
                 />
                 <p className={styles.explainer_info}>Resend</p>
                 <p className={styles.explainer_info}>Change Email</p>
             </div>
             <p className={styles.description}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                suscipit nunc est, in venenatis ipsum vulputate et.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <br />
+                Mauris suscipit nunc est, in venenatis ipsum vulputate et.
             </p>
         </div>
     );
