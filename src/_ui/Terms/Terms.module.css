@@ -1,0 +1,16 @@
+.info_container {
+    font-family: var(--font-family);
+    font-size: var(--font-size-small);
+    text-align: center;
+}
+.link {
+    color: var(--secondary-700);
+    font-family: var(--font-family);
+    font-size: var(--font-size-small);
+    text-decoration: underline;
+    display: inline;
+}
+
+.link:hover {
+    font-weight: var(--font-weight-bold);
+}

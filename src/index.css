@@ -19,7 +19,6 @@ html {
     align-items: center;
     width: 393px;
     height: 100%;
-    margin: var(--space-regular);
 }
 
 .two-column {

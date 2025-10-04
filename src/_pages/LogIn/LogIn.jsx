@@ -3,6 +3,7 @@ import styles from "./LogIn.module.css";
 import InputBox from "../../_ui/InputBox/InputBox";
 import Button from "../../_ui/Button/Button";
 import logoverticalbg from "../../assets/logoverticalbg.svg";
+import Terms from "../../_ui/Terms/Terms";
 
 import StatusBar from "../../_ui/StatusBar/StatusBar";
 
@@ -46,11 +47,16 @@ function LogIn() {
                     onClick={handlelogIn}
                 />
             </div>
-            <p className={styles.description}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                <br />
-                Mauris suscipit nunc est, in venenatis ipsum vulputate et.
-            </p>
+            <div className={styles.terms}>
+                <Terms
+                    prefix={"By signing up to Brewly, you agree to our "}
+                    linkText={"terms of use"}
+                    linkDirectory={"/"}
+                    suffix={
+                        "and to the collection of your personal information."
+                    }
+                />
+            </div>
         </div>
     );
 }

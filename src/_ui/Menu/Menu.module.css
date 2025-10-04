@@ -1,15 +1,16 @@
 .nav {
     width: 393px;
     height: 72px;
-    justify-content: center;
-    align-items: center;
     display: flex;
     flex-direction: row;
-    margin: 0;
+    justify-content: center;
+    align-items: center;
     gap: var(--space-large);
+    margin: 0;
+    padding: var(--space-regular);
     border-top: 1px solid var(--black-50);
     box-shadow: 0px -3px 5px rgba(0, 0, 0, 0.1);
-    padding: var(--space-regular);
+    box-sizing: border-box;
 }
 
 .navbar_item {
@@ -18,36 +19,55 @@
     justify-content: center;
     align-items: center;
     gap: var(--space-extra-small);
-    text-decoration: none;
     width: 60px;
     height: 44px;
-    padding-left: 32px;
-    padding-right: 32px;
     margin: 0;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .navbar_icon {
-    max-width: var(--space-regular);
-    padding: 0;
-    margin: 0;
-    fill: var(--black-500);
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
+    display: block;
+    color: var(--black-500);
+    transition: color 0.15s ease;
+}
+
+.icon_outline {
+    display: block;
+}
+.icon_filled {
+    display: none;
 }
 
 .navbar_text {
-    color: var(--black-500);
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
     font-size: var(--font-extra-size);
     line-height: var(--line-height-small);
-    text-decoration: none;
-    padding: 0;
-    margin: 0;
+    color: var(--black-500);
+    transition: color 0.15s ease;
+}
+
+.navbar_item:hover .navbar_icon,
+.navbar_item[data-active="true"] .navbar_icon {
+    color: var(--primary-500);
+    font-weight: var(--font-weight-bold);
 }
 
 .navbar_item:hover .navbar_text,
-.navbar_item:hover .navbar_icon,
-.navbar_item:active .navbar_text,
-.navbar_item:active .navbar_icon {
+.navbar_item[data-active="true"] .navbar_text {
     color: var(--primary-500);
-    fill: var(--primary-500);
+    font-weight: var(--font-weight-bold);
+}
+
+.navbar_item:hover .icon_outline,
+.navbar_item[data-active="true"] .icon_outline {
+    display: none;
+}
+.navbar_item:hover .icon_filled,
+.navbar_item[data-active="true"] .icon_filled {
+    display: block;
 }

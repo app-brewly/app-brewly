@@ -1,30 +1,30 @@
+import { useState } from "react";
 import styles from "./ButtonFav.module.css";
 import favorite from "../../assets/favorite.svg";
 import favoritefilled from "../../assets/favoritefilled.svg";
-import { useState } from "react";
 
 function ButtonFav({ onClick }) {
-    // const [isHovering, setIsHovering] = useState(false);
-    // const currentIcon = isHovering ? favoritefilled : favorite;
+    const [isHovered, setIsHovered] = useState(false);
+    const [isSelected, setIsSelected] = useState(false);
+
+    const handleClick = () => {
+        setIsSelected(!isSelected);
+        if (onClick) onClick();
+    };
+
+    const currentIcon = isHovered || isSelected ? favoritefilled : favorite;
 
     return (
         <div
             className={styles.button_container}
-            onClick={onClick}>
-            {/* onMouseEnter={() => setIsHovering(true)}
-            // onMouseLeave={() => setIsHovering(false)} */}
-            <svg
+            onClick={handleClick}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}>
+            <img
+                src={currentIcon}
+                alt='Favorite Icon'
                 className={styles.button_icon}
-                width='18'
-                height='16'
-                viewBox='0 0 18 16'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'>
-                <path
-                    d='M9.00008 15.4997L7.79175 14.4163C6.38897 13.1525 5.22925 12.0622 4.31258 11.1455C3.39591 10.2288 2.66675 9.40592 2.12508 8.67676C1.58341 7.94759 1.20494 7.27745 0.989665 6.66634C0.774387 6.05523 0.666748 5.43023 0.666748 4.79134C0.666748 3.48579 1.10425 2.39551 1.97925 1.52051C2.85425 0.645508 3.94453 0.208008 5.25008 0.208008C5.9723 0.208008 6.6598 0.360786 7.31258 0.666341C7.96536 0.971897 8.52786 1.40245 9.00008 1.95801C9.4723 1.40245 10.0348 0.971897 10.6876 0.666341C11.3404 0.360786 12.0279 0.208008 12.7501 0.208008C14.0556 0.208008 15.1459 0.645508 16.0209 1.52051C16.8959 2.39551 17.3334 3.48579 17.3334 4.79134C17.3334 5.43023 17.2258 6.05523 17.0105 6.66634C16.7952 7.27745 16.4167 7.94759 15.8751 8.67676C15.3334 9.40592 14.6042 10.2288 13.6876 11.1455C12.7709 12.0622 11.6112 13.1525 10.2084 14.4163L9.00008 15.4997ZM9.00008 13.2497C10.3334 12.0552 11.4306 11.0309 12.2917 10.1768C13.1529 9.32259 13.8334 8.57954 14.3334 7.94759C14.8334 7.31565 15.1806 6.75315 15.3751 6.26009C15.5695 5.76704 15.6667 5.27745 15.6667 4.79134C15.6667 3.95801 15.389 3.26356 14.8334 2.70801C14.2779 2.15245 13.5834 1.87467 12.7501 1.87467C12.0973 1.87467 11.4931 2.0587 10.9376 2.42676C10.382 2.79481 10.0001 3.26356 9.79175 3.83301H8.20841C8.00008 3.26356 7.61814 2.79481 7.06258 2.42676C6.50703 2.0587 5.90286 1.87467 5.25008 1.87467C4.41675 1.87467 3.7223 2.15245 3.16675 2.70801C2.61119 3.26356 2.33341 3.95801 2.33341 4.79134C2.33341 5.27745 2.43064 5.76704 2.62508 6.26009C2.81953 6.75315 3.16675 7.31565 3.66675 7.94759C4.16675 8.57954 4.8473 9.32259 5.70841 10.1768C6.56953 11.0309 7.66675 12.0552 9.00008 13.2497Z'
-                    fill='currentColor'
-                />
-            </svg>
+            />
         </div>
     );
 }
