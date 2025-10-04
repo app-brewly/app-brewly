@@ -11,20 +11,17 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                         <div className={styles.card_container}>
                             <BeerCard
                                 type='scroll'
-                                collection_name='ChangeNameHere'
+                                collection_name='IPAs'
                             />
                             <BeerCard
                                 type='scroll'
-                                collection_name='collection'
+                                collection_name='Artesanals'
                             />
                             <BeerCard
                                 type='scroll'
-                                collection_name='collection'
+                                collection_name='Favorites'
                             />
-                            <BeerCard
-                                type='scroll'
-                                collection_name='collection'
-                            />
+
                              <div className={styles.scroll_arrow}>
                             <svg
                                 width='34'
@@ -53,19 +50,15 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                         <div className={styles.card_container}>
                             <BeerCard
                                 type='scroll'
-                                collection_name='ChangeNameHere'
+                                collection_name='Heineken'
                             />
                             <BeerCard
                                 type='scroll'
-                                collection_name='collection'
+                                collection_name='Heineken'
                             />
                             <BeerCard
                                 type='scroll'
-                                collection_name='collection'
-                            />
-                            <BeerCard
-                                type='scroll'
-                                collection_name='collection'
+                                collection_name='Heineken'
                             />
                              <div className={styles.scroll_arrow}>
                             <svg
@@ -96,20 +89,17 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                         <div className={styles.card_container}>
                             <BeerCard
                                 type='scroll'
-                                collection_name='ChangeNameHere'
+                                collection_name='I like it but..'
                             />
                             <BeerCard
                                 type='scroll'
-                                collection_name='collection'
+                                collection_name='Very good!'
                             />
                             <BeerCard
                                 type='scroll'
-                                collection_name='collection'
+                                collection_name='Not my taste'
                             />
-                            <BeerCard
-                                type='scroll'
-                                collection_name='f'
-                            />
+                           
                              <div className={styles.scroll_arrow}>
                             <svg
                                 width='34'
