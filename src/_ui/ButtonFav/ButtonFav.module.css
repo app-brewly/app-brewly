@@ -7,15 +7,22 @@
     border-radius: var(--space-extra-small);
     border: 1px solid var(--black-200);
     background: var(--white);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 32px;
+    width: 32px;
+}
+
+.button_container:hover {
+    background: var(--primary-50);
 }
 
 .button_icon {
-    width: 16px;
+    width: 18px;
     height: auto;
-    fill: var(--primary-500);
+    transition: transform 0.2s ease;
 }
-.button_icon:hover {
-    width: 16px;
-    height: auto;
-    fill: var(--primary-500);
+
+.button_container:hover .button_icon {
+    transform: scale(1.1);
 }

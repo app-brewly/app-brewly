@@ -1,7 +1,7 @@
 .arrow_container {
     display: flex;
     width: 30px;
-    padding: var(--space-small);
+    padding: 0 var(--space-regular);
     flex-direction: column;
     justify-content: center;
     align-items: center;

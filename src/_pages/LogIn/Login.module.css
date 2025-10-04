@@ -6,7 +6,7 @@
     width: 393px;
     height: 852px;
     margin: 0px;
-    padding: 0px;
+    padding: 0px var(--space-regular);
 }
 
 .page_header {
@@ -17,8 +17,15 @@
     padding-bottom: var(--space-regular);
     padding: var(--space-regular);
 }
+
 .title {
     text-align: center;
+}
+
+.terms {
+    margin-top: auto;
+    max-width: 320px;
+    padding-bottom: var(--space-regular);
 }
 
 .info_container {
@@ -27,17 +34,21 @@
     gap: var(--space-regular);
     width: 100%;
 }
+
 .input_container {
     display: flex;
     flex-direction: column;
 }
+
 .explainer_text_container {
     text-align: center;
 }
+
 .explainer_header {
     font-family: var(--font-family);
     font-size: var(--font-size-regular);
 }
+
 .explainer_info {
     font-family: var(--font-family);
     font-size: var(--font-size-small);

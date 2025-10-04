@@ -6,7 +6,7 @@
     width: 393px;
     height: 852px;
     margin: 0px;
-    padding: 0px;
+    padding: 0px var(--space-regular);
 }
 
 .page_header {
@@ -17,8 +17,15 @@
     padding-bottom: var(--space-regular);
     padding: var(--space-regular);
 }
+
 .title {
     text-align: center;
+}
+
+.terms {
+    margin-top: auto;
+    max-width: 320px;
+    padding-bottom: var(--space-regular);
 }
 
 .info_container {
@@ -26,7 +33,9 @@
     flex-direction: column;
     gap: var(--space-regular);
     width: 100%;
+    margin-bottom: var(--space-regular);
 }
+
 .input_container {
     display: flex;
     flex-direction: column;

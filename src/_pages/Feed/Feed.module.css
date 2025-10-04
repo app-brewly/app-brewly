@@ -6,7 +6,7 @@
     width: 393px;
     height: 852px;
     margin: 0px;
-    padding: 0px;
+    padding: 0px var(--space-regular);
 }
 
 .page_header {
