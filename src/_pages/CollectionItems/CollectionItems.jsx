@@ -6,7 +6,6 @@ import Modal from "../../_ui/Modal/Modal";
 import Button from "../../_ui/Button/Button";
 import BeerCard from "../../_ui/BeerCard/BeerCard";
 import CollectionsMenu from "../../_ui/CollectionsMenu/CollectionsMenu";
-import DropdownMenu from "../../_ui/DropdownMenu/DropDownMenu";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
