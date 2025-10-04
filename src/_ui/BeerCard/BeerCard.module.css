@@ -25,6 +25,22 @@
 .collection_container:hover {
     background-color: var(--secondary-100);
 }
+.scroll_container {
+    display: flex;
+    width: 100px;
+    height: auto;
+    padding: var(--space-regular);
+    flex-direction: column;
+    align-items: center;
+}
+.scroll_container:hover {
+    background-color: var(--secondary-100);
+}
+
+.scroll_image {
+    height: 80px;
+    width: auto;
+}
 
 .card_image {
     height: 120px;
@@ -49,6 +65,28 @@
     margin: 0px;
     padding: 0px;
     line-height: 1;
+}
+
+.scroll_text {
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-family: var(--font-family);
+    margin: var(--space-regular);
+}
+
+.scroll_title {
+    color: var(--black-500);
+    width: 80px;
+    height: auto;
+    text-align: center;
+    font-size: var(--font-size-regular);
+    font-style: var(--font-style-normal);
+    font-weight: var(--font-weight-bold);
+    /* margin: 0px;
+    padding: 0px; */
 }
 
 .card_subtitle {

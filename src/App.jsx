@@ -18,6 +18,9 @@ import BeerInfo from "./_pages/BeerInfo/BeerInfo";
 import Collections from "./_pages/Collections/Collections";
 import CollectionItems from "./_pages/CollectionItems/CollectionItems";
 import CollectionInfo from "./_pages/CollectionInfo/CollectionInfo";
+import Profile from "./_pages/Profile/Profile";
+import Settings from "./_pages/Settings/Settings";
+import EditProfile from "./_pages/EditProfile/EditProfile";
 
 function App() {
     return (
@@ -82,6 +85,18 @@ function App() {
                     <Route
                         path='/CollectionItems'
                         element={<CollectionItems />}
+                    />
+                    <Route
+                        path='/Profile'
+                        element={<Profile />}
+                    />
+                    <Route
+                        path='/Settings'
+                        element={<Settings />}
+                    />
+                    <Route
+                        path='/EditProfile'
+                        element={<EditProfile />}
                     />
                 </Routes>
             </Router>

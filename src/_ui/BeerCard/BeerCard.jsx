@@ -59,6 +59,20 @@ function BeerCard({
                     </div>
                 </div>
             )}
+            {type === "scroll" && (
+                <div
+                    className={styles.scroll_container}
+                    onClick={onCollectionClick}>
+                    <img
+                        src={beercan}
+                        alt='Heineken beer can'
+                        className={styles.scroll_image}
+                    />
+                    
+                        <h3 className={styles.scroll_title}>{collection_name}</h3>
+                 
+                </div>
+            )}
         </div>
     );
 }

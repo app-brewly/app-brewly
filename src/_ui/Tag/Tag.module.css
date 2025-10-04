@@ -1,4 +1,4 @@
-.tag_container {
+.primary_container {
     display: inline-flex;
     padding: var(--space-small) var(--space-regular);
     align-items: center;
@@ -7,5 +7,27 @@
     height: 32px;
     width: auto;
     color: var(--black-500);
+    font-size: var(--font-size-small);
+}
+.secondary_container {
+    display: inline-flex;
+    padding: var(--space-small) var(--space-regular);
+    align-items: center;
+    border-radius: var(--space-small);
+    border: 1px solid var(--secondary-500);
+    height: 32px;
+    width: auto;
+    color: var(--black-500);
+    font-size: var(--font-size-small);
+}
+.tertiary_container {
+    display: inline-flex;
+    padding: var(--space-small) var(--space-regular);
+    align-items: center;
+    border-radius: var(--space-small);
+    background: var(--primary-600);
+    height: 32px;
+    width: auto;
+    color: var(--white);
     font-size: var(--font-size-small);
 }

@@ -1,0 +1,48 @@
+.page_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-regular);
+    width: 393px;
+    height: 852px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.page_header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-regular);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    padding-bottom: var(--space-regular);
+    padding: var(--space-regular);
+}
+
+.page_content {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: var(--space-regular);
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 0;
+}
+.tag_container {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-small);
+    justify-content: center;
+}
+.scroll_list {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--space-regular);
+    padding: var(--space-regular);
+}
+.lists_container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-regular);
+    padding-left: var(--space-large);
+    padding-right: var(--space-regular);
+}

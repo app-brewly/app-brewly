@@ -1,0 +1,9 @@
+.inputs_container {
+    margin-bottom: var(--space-regular);
+}
+
+.button_row {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-regular);
+}

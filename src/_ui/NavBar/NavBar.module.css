@@ -49,23 +49,3 @@
 .nav_icon:hover {
     fill: var(--primary-900);
 }
-
-.add_icon {
-    fill: var(--primary-500);
-}
-
-.add_icon:hover {
-    fill: var(--primary-900);
-}
-.back_arrow_icon {
-    fill: var(--primary-500);
-}
-.back_arrow_icon:hover {
-    fill: var(--primary-900);
-}
-.menu_icon {
-    fill: var(--primary-500);
-}
-.menu_icon:hover {
-    fill: var(--primary-900);
-}
