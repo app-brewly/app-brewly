@@ -1,5 +1,5 @@
 import styles from "./StatusBar.module.css";
-import Hour from "../Hour/hour";
+import Hour from "../Hour/Hour";
 
 const StatusBar = () => {
     return (
