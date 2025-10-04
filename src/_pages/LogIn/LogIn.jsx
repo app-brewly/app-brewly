@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./LogIn.module.css";
+import styles from "./Login.module.css";
 import InputBox from "../../_ui/InputBox/InputBox";
 import Button from "../../_ui/Button/Button";
 import logoverticalbg from "../../assets/logoverticalbg.svg";
