@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./AgeVerification.module.css";
 import InputBox from "../../_ui/InputBox/InputBox";
 import Button from "../../_ui/Button/Button";
-import DropdownMenu from "../../_ui/DropdownMenu/DropDownMenu";
+import DropdownMenu from "../../_ui/DropdownMenu/DropdownMenu";
 import illustration6 from "../../assets/illustration6.svg";
 import Terms from "../../_ui/Terms/Terms";
 
