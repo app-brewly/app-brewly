@@ -1,5 +1,5 @@
 .add_button_container {
-    background-color: var(--black-500);
+    background-color: var(--secondary-500);
     padding: var(--space-small);
     width: 56px;
     height: 56px;
@@ -8,6 +8,7 @@
     justify-content: center;
     align-items: center;
     margin-right: var(--space-small);
+    color: var(--black-500);
 }
 
 .collection_header {
@@ -17,4 +18,9 @@
 .create_collection_container {
     display: flex;
     margin-bottom: var(--space-small);
+}
+
+.add_button_container:hover {
+    background-color: var(--primary-500);
+    color: var(--white);
 }

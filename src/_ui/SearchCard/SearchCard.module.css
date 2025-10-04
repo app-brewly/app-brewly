@@ -62,10 +62,19 @@
     justify-content: center;
     align-items: center;
     border-radius: var(--space-extra-small);
-    background: var(--black-500);
+    background: var(--secondary-500);
 }
 
 .card_icon {
     width: 16px;
     height: auto;
+}
+
+.card_container:hover {
+    background-color: var(--secondary-100);
+
+    .card_button {
+        background: var(--primary-500);
+        color: var(--white);
+    }
 }

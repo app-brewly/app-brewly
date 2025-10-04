@@ -45,9 +45,9 @@
 }
 
 .navbar_item:hover .navbar_text,
-.navbar_tem:hover .navbar_icon,
+.navbar_item:hover .navbar_icon,
 .navbar_item:active .navbar_text,
-.navbar_tem:active .navbar_icon {
+.navbar_item:active .navbar_icon {
     color: var(--primary-500);
     fill: var(--primary-500);
 }

@@ -12,10 +12,15 @@
 .search_icon {
     width: 24px;
     height: 24px;
+    fill: var(--primary-500);
 }
 
 .search_text {
     color: var(--black-300);
     font-family: var(--font-family);
     font-size: var(--font-size-medium);
+}
+
+.search_icon:hover {
+    fill: var(--primary-900);
 }

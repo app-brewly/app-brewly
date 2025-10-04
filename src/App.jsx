@@ -12,13 +12,12 @@ import StepFive from "./_pages/Onboarding/StepFive/StepFive";
 import AgeVerification from "./_pages/AgeVerification/AgeVerification";
 import LogIn from "./_pages/LogIn/LogIn";
 import CodeVerification from "./_pages/CodeVerification/CodeVerification";
-
-import Collections from "./_pages/Collections/Collections";
 import Feed from "./_pages/Feed/Feed";
+import SearchPage from "./_pages/SearchPage/SearchPage";
 import BeerInfo from "./_pages/BeerInfo/BeerInfo";
+import Collections from "./_pages/Collections/Collections";
 import CollectionItems from "./_pages/CollectionItems/CollectionItems";
 import CollectionInfo from "./_pages/CollectionInfo/CollectionInfo";
-import SearchPage from "./_pages/SearchPage/SearchPage";
 
 function App() {
     return (
@@ -51,7 +50,14 @@ function App() {
                         path='/AgeVerification'
                         element={<AgeVerification />}
                     />
-
+                    <Route
+                        path='/LogIn'
+                        element={<LogIn />}
+                    />
+                    <Route
+                        path='/CodeVerification'
+                        element={<CodeVerification />}
+                    />
                     <Route
                         path='/Feed'
                         element={<Feed />}
@@ -61,13 +67,10 @@ function App() {
                         element={<SearchPage />}
                     />
                     <Route
-                        path='/CodeVerification'
-                        element={<CodeVerification />}
+                        path='/BeerInfo'
+                        element={<BeerInfo />}
                     />
-                    <Route
-                        path='/LogIn'
-                        element={<LogIn />}
-                    />
+
                     <Route
                         path='/collections'
                         element={<Collections />}
@@ -79,10 +82,6 @@ function App() {
                     <Route
                         path='/CollectionItems'
                         element={<CollectionItems />}
-                    />
-                    <Route
-                        path='/BeerInfo'
-                        element={<BeerInfo />}
                     />
                 </Routes>
             </Router>

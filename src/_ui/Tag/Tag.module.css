@@ -3,8 +3,9 @@
     padding: var(--space-small) var(--space-regular);
     align-items: center;
     border-radius: var(--space-small);
-    background: var(--black-500);
+    background: var(--secondary-500);
     height: 32px;
     width: auto;
-    color: var(--white);
+    color: var(--black-500);
+    font-size: var(--font-size-small);
 }

@@ -18,7 +18,7 @@ function CreateCollection({ type, onClick }) {
                             className={styles.create_collection_icon}>
                             <path
                                 d='M11 21V13H3V11H11V3H13V11H21V13H13V21H11Z'
-                                fill='white'
+                                fill='currentcolor'
                             />
                         </svg>
                     </div>
@@ -41,7 +41,7 @@ function CreateCollection({ type, onClick }) {
                             className={styles.create_collection_icon}>
                             <path
                                 d='M11 21V13H3V11H11V3H13V11H21V13H13V21H11Z'
-                                fill='white'
+                                fill='currentcolor'
                             />
                         </svg>
                     </div>

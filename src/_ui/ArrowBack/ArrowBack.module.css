@@ -10,7 +10,11 @@
 }
 
 .arrow_icon {
-    fill: var(--black-500);
+    fill: var(--primary-500);
     width: 16px;
     height: 16px;
+}
+
+.arrow_icon:hover {
+    fill: var(--primary-900);
 }

@@ -1,7 +1,7 @@
 .button_container {
     padding: var(--space-small);
     border-radius: var(--space-extra-small);
-    background: var(--black-500);
+    background: var(--secondary-500);
     height: 32px;
     width: auto;
     display: flex;
@@ -11,7 +11,11 @@
 }
 
 .button_cta {
-    color: var(--white);
     font-family: var(--font-family);
     font-size: var(--font-size-small);
+}
+
+.button_container:hover {
+    background: var(--primary-500);
+    color: var(--white);
 }
