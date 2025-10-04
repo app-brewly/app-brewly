@@ -21,6 +21,10 @@
     font-weight: var(--font-style-normal);
     color: var(--black-200);
 }
+.account_info_title {
+    font-family: var(--font-family);
+    font-size: var(--font-size-regular);
+}
 
 .input_box {
     font-family: var(--font-family);
@@ -33,6 +37,25 @@
     align-items: center;
     display: flex;
     padding: var(--space-regular);
+}
+.number_input_container {
+    border: 1px solid var(--black-500);
+    color: var(--black-100);
+    width: 100%;
+    height: var(--space-large);
+    border-radius: var(--space-small);
+    align-items: center;
+    display: flex;
+    padding: var(--space-regular);
+}
+.phone_number_input {
+    border: var(--white);
+    font-family: var(--font-family);
+    font-size: var(--font-size-regular);
+}
+.flag {
+    font-family: var(--font-family);
+    font-size: var(--font-size-label);
 }
 .dropdown_box {
     font-family: var(--font-family);

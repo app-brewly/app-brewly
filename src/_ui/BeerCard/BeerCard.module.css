@@ -25,6 +25,22 @@
 .collection_container:hover {
     background-color: var(--secondary-100);
 }
+.scroll_container {
+    display: flex;
+    width: 80px;
+    height: auto;
+    padding: var(--space-regular);
+    flex-direction: column;
+    align-items: center;
+}
+.scroll_container:hover {
+    background-color: var(--secondary-100);
+}
+
+.scroll_image {
+    height: 80px;
+    width: auto;
+}
 
 .card_image {
     height: 120px;

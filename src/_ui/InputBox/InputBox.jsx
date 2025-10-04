@@ -36,6 +36,33 @@ function InputBox({ inputName, placeholder, type, value, onChange }) {
                     />
                 </div>
             )}
+            {type === "account" && (
+                <div className={styles.label_container}>
+                    <h3 className={styles.account_info_title}>{inputName}</h3>
+                    <input
+                        className={styles.input_box}
+                        type='text'
+                        placeholder={placeholder}
+                        value={value}
+                        onChange={onChange}
+                    />
+                </div>
+            )}
+            {type === "number" && (
+                <div className={styles.label_container}>
+                    <h3>{inputName}</h3>
+                    <div className={styles.number_input_container}>
+                        <p className={styles.flag}>🇨🇦+1</p>
+                        <input
+                            className={styles.phone_number_input}
+                            type='text'
+                            placeholder={placeholder}
+                            value={value}
+                            onChange={onChange}
+                        />
+                    </div>
+                </div>
+            )}
         </>
     );
 }
