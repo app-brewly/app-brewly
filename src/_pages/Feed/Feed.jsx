@@ -6,16 +6,20 @@ import styles from "./Feed.module.css";
 import Modal from "../../_ui/Modal/Modal";
 import CollectionCard from "../../_ui/CollectionCard/CollectionCard";
 import CreateCollection from "../../_ui/CreateCollection/CreateCollection";
+import InputBox from "../../_ui/InputBox/InputBox";
+import Button from "../../_ui/Button/Button";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Feed() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const navigate = useNavigate();
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+        setIsCreateModalOpen(false);
     };
 
     const handleKnowMore = () => {
@@ -23,6 +27,10 @@ function Feed() {
     };
     const handleFav = () => {
         setIsModalOpen(true);
+    };
+    const handleCreateCollection = () => {
+        setIsModalOpen(false);
+        setIsCreateModalOpen(true);
     };
 
     return (
@@ -75,7 +83,10 @@ function Feed() {
                             <Modal
                                 header='Save it to your Collection'
                                 onClose={handleCloseModal}>
-                                <CreateCollection type='button' />
+                                <CreateCollection
+                                    type='button'
+                                    onClick={handleCreateCollection}
+                                />
                                 <CollectionCard
                                     collection_name='IPA'
                                     onClick={handleCloseModal}
@@ -84,6 +95,25 @@ function Feed() {
                                 <CollectionCard collection_name='Favorites' />
                             </Modal>
                         </>
+                    )}
+                    {isCreateModalOpen && (
+                        <Modal
+                            header='Save it to your Collection'
+                            onClose={handleCloseModal}>
+                            <InputBox type='regular' />
+                            <div className={styles.button_row}>
+                                <Button
+                                    value='Cancel'
+                                    type='secondary'
+                                    onClick={handleCloseModal}
+                                />
+                                <Button
+                                    value='Save'
+                                    type='primary'
+                                    onClick={handleCloseModal}
+                                />
+                            </div>
+                        </Modal>
                     )}
                 </div>
             </div>

@@ -12,12 +12,31 @@
     align-items: center;
     gap: var(--space-small);
     padding: var(--space-small);
-
     font-size: var(--font-size-regular);
     font-weight: var(--font-weight-bold);
     border-radius: var(--space-extra-small);
 }
 
 .item_container:hover {
-    background-color: var(--black-100);
+    background-color: var(--primary-50);
+}
+
+.edit_icon {
+    fill: var(--primary-500);
+}
+.delete_icon {
+    fill: var(--primary-500);
+}
+.info_icon {
+    fill: var(--primary-500);
+}
+
+.info_icon:hover {
+    fill: var(--primary-900);
+}
+.edit_icon:hover {
+    fill: var(--primary-900);
+}
+.delete_icon:hover {
+    fill: var(--primary-900);
 }

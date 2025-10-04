@@ -83,6 +83,7 @@ function CollectionItems() {
                         />
                         <Button
                             value='Delete'
+                            type='primary'
                             onClick={handleDeleteModalClose}
                         />
                     </div>
@@ -101,6 +102,7 @@ function CollectionItems() {
                         />
                         <Button
                             value='Delete'
+                            type='primary'
                             onClick={handleEditModalClose}
                         />
                     </div>

@@ -14,3 +14,8 @@
     height: auto;
     fill: var(--primary-500);
 }
+.button_icon:hover {
+    width: 16px;
+    height: auto;
+    fill: var(--primary-500);
+}

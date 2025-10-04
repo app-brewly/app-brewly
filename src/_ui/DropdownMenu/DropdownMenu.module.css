@@ -1,6 +1,6 @@
 .dropdown {
     position: relative;
-    display: inline-block; /* instead of width: 100% */
+    display: inline-block;
     font-family: sans-serif;
 }
 .dropdown_container {
