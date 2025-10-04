@@ -68,9 +68,9 @@ function BeerCard({
                         alt='Heineken beer can'
                         className={styles.scroll_image}
                     />
-                    <div className={styles.card_text}>
-                        <h3 className={styles.card_title}>{collection_name}</h3>
-                    </div>
+                    
+                        <h3 className={styles.scroll_title}>{collection_name}</h3>
+                 
                 </div>
             )}
         </div>

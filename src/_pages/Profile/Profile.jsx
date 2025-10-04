@@ -15,31 +15,29 @@ function Profile() {
             </div>
 
             <div className={styles.page_content}>
-                <ProfileCover
+            <ProfileCover
                     type='regular'
                     img_src='./Image_Placeholder_.png'
                 />
-                <div className={styles.tag_container}>
-                    <Tag
-                        title='lager'
+                 <div className={styles.tag_container}>
+                     <Tag
+                        title='All'
                         type='tertiary'
                     />
                     <Tag
-                        title='lager'
+                        title='Collections'
                         type='secondary'
                     />
                     <Tag
-                        title='lager'
+                        title='Wishlist'
                         type='secondary'
                     />
                     <Tag
-                        title='lager'
+                        title='Reviews'
                         type='secondary'
                     />
                 </div>
-
-                <div className={styles.lists_container}>
-                    <ScrollList
+                            <ScrollList
                         section_name='Collections'
                         type='collections'
                     />
@@ -51,10 +49,11 @@ function Profile() {
                         section_name='Reviews'
                         type='reviews'
                     />
-                </div>
             </div>
+
             <Menu />
-        </div>
+         </div>
+       
     );
 }
 

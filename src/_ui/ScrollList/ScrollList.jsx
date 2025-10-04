@@ -8,7 +8,6 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
             {type === "collections" && (
                 <div className={styles.section_container}>
                     <div className={styles.section_name}>{section_name}</div>
-                    <div className={styles.list_container}>
                         <div className={styles.card_container}>
                             <BeerCard
                                 type='scroll'
@@ -26,9 +25,7 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                                 type='scroll'
                                 collection_name='collection'
                             />
-                        </div>
-
-                        <div className={styles.scroll_arrow}>
+                             <div className={styles.scroll_arrow}>
                             <svg
                                 width='34'
                                 height='32'
@@ -44,13 +41,15 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                                 />
                             </svg>
                         </div>
-                    </div>
+                        </div>
+        
+
+                       
                 </div>
             )}
             {type === "wishlist" && (
-                <div className={styles.section_container}>
+                 <div className={styles.section_container}>
                     <div className={styles.section_name}>{section_name}</div>
-                    <div className={styles.list_container}>
                         <div className={styles.card_container}>
                             <BeerCard
                                 type='scroll'
@@ -68,9 +67,7 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                                 type='scroll'
                                 collection_name='collection'
                             />
-                        </div>
-
-                        <div className={styles.scroll_arrow}>
+                             <div className={styles.scroll_arrow}>
                             <svg
                                 width='34'
                                 height='32'
@@ -86,13 +83,16 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                                 />
                             </svg>
                         </div>
-                    </div>
+                        </div>
+        
+
+                       
                 </div>
+    
             )}
             {type === "reviews" && (
-                <div className={styles.section_container}>
+              <div className={styles.section_container}>
                     <div className={styles.section_name}>{section_name}</div>
-                    <div className={styles.list_container}>
                         <div className={styles.card_container}>
                             <BeerCard
                                 type='scroll'
@@ -108,11 +108,9 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                             />
                             <BeerCard
                                 type='scroll'
-                                collection_name='collection'
+                                collection_name='f'
                             />
-                        </div>
-
-                        <div className={styles.scroll_arrow}>
+                             <div className={styles.scroll_arrow}>
                             <svg
                                 width='34'
                                 height='32'
@@ -128,8 +126,12 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                                 />
                             </svg>
                         </div>
-                    </div>
+                        </div>
+        
+
+                       
                 </div>
+            
             )}
         </>
     );
