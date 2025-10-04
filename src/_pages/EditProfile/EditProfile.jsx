@@ -6,6 +6,7 @@ import ProfileCover from "../../_ui/ProfileCover/ProfileCover";
 import Button from "../../_ui/Button/Button";
 import InputBox from "../../_ui/InputBox/InputBox";
 import { useNavigate } from "react-router-dom";
+import Menu from "../../_ui/Menu/Menu";
 
 function EditProfile() {
     const navigate = useNavigate();
@@ -60,9 +61,13 @@ function EditProfile() {
                         value='Cancel'
                         type='secondary'
                     />
-                    <Button value='Save' type="primary" />
+                    <Button
+                        value='Save'
+                        type='primary'
+                    />
                 </div>
             </div>
+            <Menu />
         </div>
     );
 }
