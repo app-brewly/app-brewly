@@ -48,6 +48,7 @@ function Collections() {
                             />
                             <Button
                                 value='Save'
+                                type='primary'
                                 onClick={handleCloseModal}
                             />
                         </div>

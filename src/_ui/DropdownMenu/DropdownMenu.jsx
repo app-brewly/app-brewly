@@ -1,7 +1,7 @@
 import styles from "./DropdownMenu.module.css";
 import { useState } from "react";
 
-function DropdownMenu({ list, placeholder, type, onSelect }) {
+function DropdownMenu({ list, placeholder, type, onSelect, title }) {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState(null);
 
@@ -14,6 +14,7 @@ function DropdownMenu({ list, placeholder, type, onSelect }) {
 
     return (
         <div className={styles.dropdown}>
+            <h3>{title}</h3>
             {type !== "icon_dropdown" && (
                 <div
                     className={styles.selected}
@@ -37,30 +38,12 @@ function DropdownMenu({ list, placeholder, type, onSelect }) {
                             key={c.value}
                             className={styles.option}
                             onClick={() => handleSelect(c)}>
-                            <span className={styles.flag}>{c.flag}</span>{" "}
+                            <span className={styles.flag}>{c.flag}</span>
+                            {"  "}
                             {c.label}
                         </li>
                     ))}
                 </ul>
-            )}
-            {type === "icon_dropdown" && isOpen && (
-                <div className={styles.menu_container}>
-                    <ul className={styles.menu}>
-                        {list.map((c) => (
-                            <li
-                                key={c.value}
-                                className={styles.option}
-                                onClick={() => onSelect(c)}>
-                                {c.flag && (
-                                    <span className={styles.icon}>
-                                        {c.flag}
-                                    </span>
-                                )}
-                                <span>{c.label}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
             )}
         </div>
     );

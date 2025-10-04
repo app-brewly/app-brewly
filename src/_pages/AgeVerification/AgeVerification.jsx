@@ -42,6 +42,7 @@ function AgeVerification() {
                         value='DD/MM/YYYY'
                     />
                     <DropdownMenu
+                        title='Country'
                         list={countries}
                         placeholder='Select a country'
                     />
