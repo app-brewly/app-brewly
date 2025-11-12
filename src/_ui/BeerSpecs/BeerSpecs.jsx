@@ -1,6 +1,10 @@
 import styles from "./BeerSpecs.module.css";
 
-function BeerSpecs() {
+function BeerSpecs({ abv, ibu }) {
+    // If values not available
+    const displayAbv = abv !== null && abv !== undefined ? `${abv}%` : "N/A";
+    const displayIbu = ibu !== null && ibu !== undefined ? ibu : "N/A";
+
     return (
         <div className={styles.specs_container}>
             <h3 className={styles.specs_title}>Specifications</h3>
@@ -39,7 +43,7 @@ function BeerSpecs() {
                     </svg>
                     <p className={styles.specs_text}>ABV</p>
                 </div>
-                <p className={styles.specs_text}>5.0%</p>
+                <p className={styles.specs_text}>{displayAbv}</p>
             </div>
 
             <div className={styles.specs_item}>
@@ -47,7 +51,7 @@ function BeerSpecs() {
                     <svg
                         className={styles.specs_icon}
                         id='fi_8468875'
-                        enable-background='new 0 0 100 100'
+                        enableBackground='new 0 0 100 100'
                         height='512'
                         viewBox='0 0 100 100'
                         width='512'
@@ -56,7 +60,7 @@ function BeerSpecs() {
                     </svg>
                     <p className={styles.specs_text}>IBU</p>
                 </div>
-                <p className={styles.specs_text}>50</p>
+                <p className={styles.specs_text}>{displayIbu}</p>
             </div>
 
             <div className={styles.specs_item}>
@@ -70,14 +74,14 @@ function BeerSpecs() {
                         <path
                             d='M15.0488 1.14087C14.8017 1.14087 14.568 1.19827 14.3604 1.30048C12.8299 2.05369 11.2507 2.70184 9.54494 2.70184H8.06482C6.3591 2.70184 4.77982 2.05369 3.2494 1.30048C3.04176 1.19827 2.80808 1.14087 2.56098 1.14087C1.69885 1.14087 1 1.83972 1 2.70184V5.8238C1 6.68584 1.69885 7.38477 2.56098 7.38477C2.80796 7.38477 3.04152 7.32741 3.24913 7.22528C4.77975 6.4723 6.35899 5.8238 8.06478 5.8238H9.54494C11.2507 5.8238 12.83 6.4723 14.3606 7.22528C14.5682 7.32741 14.8018 7.38477 15.0488 7.38477C15.9109 7.38477 16.6098 6.68584 16.6098 5.8238V2.70184C16.6098 1.83972 15.9109 1.14087 15.0488 1.14087Z'
                             stroke='black'
-                            stroke-width='1.56098'
-                            stroke-miterlimit='10'
+                            strokeWidth='1.56098'
+                            strokeMiterlimit='10'
                         />
                         <path
                             d='M9.75593 5.83301L8.02441 7.38462L9.58539 8.94559L8.02441 10.5066L9.58539 12.0675L8.02441 13.6285L9.58539 15.1895L8.02441 16.7505L9.58539 18.3114L8.02441 19.7944'
                             stroke='black'
-                            stroke-width='1.56098'
-                            stroke-miterlimit='10'
+                            strokeWidth='1.56098'
+                            strokeMiterlimit='10'
                         />
                     </svg>
                     <p className={styles.specs_text}>Closure</p>

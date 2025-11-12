@@ -70,7 +70,7 @@ function App() {
                         element={<SearchPage />}
                     />
                     <Route
-                        path='/BeerInfo'
+                        path='/BeerInfo/:id?'
                         element={<BeerInfo />}
                     />
 

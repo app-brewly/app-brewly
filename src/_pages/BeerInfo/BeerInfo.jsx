@@ -10,12 +10,47 @@ import Modal from "../../_ui/Modal/Modal";
 import CollectionCard from "../../_ui/CollectionCard/CollectionCard";
 import CreateCollection from "../../_ui/CreateCollection/CreateCollection";
 
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { fetchBeerById, transformBeerData } from "../../services/beerApi";
 
 function BeerInfo() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [beer, setBeer] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const { id } = useParams(); // Added this to get the ID from the API for each beer
+
+    // Load beer
+    useEffect(() => {
+        const loadBeer = async () => {
+            if (!id) {
+                setError("Beer ID not provided");
+                setLoading(false);
+                return;
+            }
+
+            try {
+                setLoading(true);
+                setError(null);
+                const data = await fetchBeerById(id);
+
+                // API returns a single object, not an array - beer data
+                const transformedBeer = transformBeerData(data);
+                setBeer(transformedBeer);
+            } catch (err) {
+                console.error("Error loading beer:", err);
+                setError(
+                    "Error loading beer information. Please try again later."
+                );
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadBeer();
+    }, [id]);
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
@@ -23,6 +58,42 @@ function BeerInfo() {
     const handleFav = () => {
         setIsModalOpen(true);
     };
+
+    // Loading msg while loading
+    if (loading) {
+        return (
+            <div className={styles.page_container}>
+                <div className={styles.page_header}>
+                    <StatusBar />
+                    <div className={styles.page_nav}>
+                        <ArrowBack />
+                    </div>
+                </div>
+                <div className={styles.page_content}>
+                    <p className={styles.text}>Loading beer information...</p>
+                </div>
+                <Menu className={styles.page_footer} />
+            </div>
+        );
+    }
+
+    // If error
+    if (error || !beer) {
+        return (
+            <div className={styles.page_container}>
+                <div className={styles.page_header}>
+                    <StatusBar />
+                    <div className={styles.page_nav}>
+                        <ArrowBack />
+                    </div>
+                </div>
+                <div className={styles.page_content}>
+                    <p className={styles.text}>{error || "Beer not found"}</p>
+                </div>
+                <Menu className={styles.page_footer} />
+            </div>
+        );
+    }
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -34,8 +105,10 @@ function BeerInfo() {
 
             <div className={styles.page_beerheader}>
                 <div className={styles.page_title}>
-                    <h1 className={styles.page_beer}>Heineken</h1>
-                    <p className={styles.page_brewer}> Heineken N.V.</p>
+                    <h1 className={styles.page_beer}>{beer.name}</h1>
+                    <p className={styles.page_brewer}>
+                        {beer.tagline || beer.brewery}
+                    </p>
                 </div>
 
                 <ButtonFav onClick={handleFav} />
@@ -56,41 +129,18 @@ function BeerInfo() {
             <div className={styles.page_content}>
                 <img
                     className={styles.page_image}
-                    src={beercan}
-                    alt='Heineken beer can'
+                    src={beer.image || beercan}
+                    alt={`${beer.name} beer`}
                 />
 
-                <div className={styles.page_tags}>
-                    <Tag />
-                    <Tag />
-                    <Tag />
-                    <Tag />
-                </div>
-
-                <BeerSpecs />
+                <BeerSpecs
+                    abv={beer.abv}
+                    ibu={beer.ibu}
+                />
                 <h3 className={styles.page_spectitle}>
-                    Discover this Lager Beer Can
+                    {beer.tagline || "Discover this Beer"}
                 </h3>
-                <p className={styles.page_spectext}>
-                    Heineken Lager Beer, a renowned Dutch brew, is a classic
-                    example of a pale lager that has gained global popularity
-                    for its crisp and refreshing taste. Brewed with high-quality
-                    ingredients including malted barley, water, hops, and yeast,
-                    Heineken Lager Beer boasts a distinctive flavor profile
-                    characterized by its balanced bitterness and subtle fruity
-                    notes. The iconic green can design is instantly recognizable
-                    and serves as a symbol of the brand’s longstanding tradition
-                    of excellence in brewing. With an ABV (alcohol by volume) of
-                    around 5%, Heineken Lager Beer offers a smooth drinking
-                    experience that appeals to both seasoned beer enthusiasts
-                    and casual drinkers alike. Its light body and clean finish
-                    make it an ideal choice for social gatherings or enjoying on
-                    its own. Whether sipped straight from the can or poured into
-                    a glass to appreciate its golden hue, Heineken Lager Beer
-                    continues to be a staple in the world of international
-                    beers, setting the standard for quality and consistency
-                    across markets worldwide.
-                </p>
+                <p className={styles.page_spectext}>{beer.description}</p>
             </div>
             <Menu className={styles.page_footer} />
         </div>

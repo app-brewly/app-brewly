@@ -40,10 +40,18 @@
     display: flex;
     flex-direction: row;
     gap: var(--space-regular);
+    align-items: stretch;
+    width: 100%;
 }
+
 .button_row {
     display: flex;
     padding-top: var(--space-regular);
     flex-direction: row;
     gap: var(--space-regular);
+}
+
+.text {
+    padding: "20px";
+    text-align: "center";
 }

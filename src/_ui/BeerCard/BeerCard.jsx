@@ -9,19 +9,28 @@ function BeerCard({
     onCollectionClick,
     onKnowMoreClick,
     onFavClick,
+    // Props from API
+    beerName,
+    brewery,
+    image,
+    beerId,
 }) {
     return (
         <div>
             {type === "feed" && (
                 <div className={styles.card_container}>
                     <img
-                        src={beercan}
-                        alt='Heineken beer can'
+                        src={image || beercan}
+                        alt={beerName || "Beer can"}
                         className={styles.card_image}
                     />
                     <div className={styles.card_text}>
-                        <h3 className={styles.card_title}>Heineken</h3>
-                        <p className={styles.card_subtitle}>Heineken N.V.</p>
+                        <h3 className={styles.card_title}>
+                            {beerName || "Beer not available"}
+                        </h3>
+                        <p className={styles.card_subtitle}>
+                            {brewery || "Brewery not available."}
+                        </p>
                     </div>
                     <div className={styles.button_container}>
                         <ButtonFav onClick={onFavClick} />
@@ -35,7 +44,7 @@ function BeerCard({
                     onClick={onCollectionClick}>
                     <img
                         src={beercan}
-                        alt='Heineken beer can'
+                        alt='Beer can'
                         className={styles.card_image}
                     />
                     <div className={styles.card_text}>
@@ -46,13 +55,17 @@ function BeerCard({
             {type === "collection info" && (
                 <div className={styles.card_container}>
                     <img
-                        src={beercan}
-                        alt='Heineken beer can'
+                        src={image || beercan}
+                        alt={beerName || "Beer can"}
                         className={styles.card_image}
                     />
                     <div className={styles.card_text}>
-                        <h3 className={styles.card_title}>Heineken</h3>
-                        <p className={styles.card_subtitle}>Heineken N.V.</p>
+                        <h3 className={styles.card_title}>
+                            {beerName || "Beer name"}
+                        </h3>
+                        <p className={styles.card_subtitle}>
+                            {brewery || "Brewery name"}
+                        </p>
                     </div>
                     <div className={styles.button_container}>
                         <ButtonKnowMore onClick={onKnowMoreClick} />
@@ -65,12 +78,11 @@ function BeerCard({
                     onClick={onCollectionClick}>
                     <img
                         src={beercan}
-                        alt='Heineken beer can'
+                        alt='Beer can'
                         className={styles.scroll_image}
                     />
-                    
-                        <h3 className={styles.scroll_title}>{collection_name}</h3>
-                 
+
+                    <h3 className={styles.scroll_title}>{collection_name}</h3>
                 </div>
             )}
         </div>

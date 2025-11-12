@@ -103,3 +103,8 @@
 .page_footer {
     margin-top: auto;
 }
+
+.text {
+    padding: "20px";
+    text-align: "center";
+}
