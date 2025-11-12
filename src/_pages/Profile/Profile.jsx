@@ -3,10 +3,16 @@ import NavBar from "../../_ui/NavBar/NavBar";
 import ProfileCover from "../../_ui/ProfileCover/ProfileCover";
 import Menu from "../../_ui/Menu/Menu";
 import ScrollList from "../../_ui/ScrollList/ScrollList";
-import Tag from "../../_ui/Tag/Tag";
 import styles from "./Profile.module.css";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
+    const navigate = useNavigate();
+
+    const handleCollectionClick = () => {
+        navigate("/collections");
+    };
+
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -15,45 +21,30 @@ function Profile() {
             </div>
 
             <div className={styles.page_content}>
-            <ProfileCover
+                <ProfileCover
                     type='regular'
                     img_src='./Image_Placeholder_.png'
                 />
-                 <div className={styles.tag_container}>
-                     <Tag
-                        title='All'
-                        type='tertiary'
-                    />
-                    <Tag
-                        title='Collections'
-                        type='secondary'
-                    />
-                    <Tag
-                        title='Wishlist'
-                        type='secondary'
-                    />
-                    <Tag
-                        title='Reviews'
-                        type='secondary'
-                    />
-                </div>
-                            <ScrollList
-                        section_name='Collections'
-                        type='collections'
-                    />
-                    <ScrollList
-                        section_name='Wishlist'
-                        type='wishlist'
-                    />
-                    <ScrollList
-                        section_name='Reviews'
-                        type='reviews'
-                    />
+
+                <ScrollList
+                    section_name='All Collections'
+                    type='collections'
+                    onItemClick={handleCollectionClick}
+                />
+                <ScrollList
+                    section_name='Wishlist'
+                    type='wishlist'
+                    onItemClick={handleCollectionClick}
+                />
+                <ScrollList
+                    section_name='Reviews'
+                    type='reviews'
+                    onItemClick={handleCollectionClick}
+                />
             </div>
 
             <Menu />
-         </div>
-       
+        </div>
     );
 }
 

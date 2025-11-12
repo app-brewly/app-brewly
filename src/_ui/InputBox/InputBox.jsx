@@ -19,8 +19,11 @@ function InputBox({ inputName, placeholder, type, value, onChange }) {
                         className={styles.input_box}
                         type='text'
                         placeholder={placeholder}
-                        value={value}
-                        onChange={onChange}
+                        {...(value !== undefined && onChange
+                            ? { value, onChange }
+                            : value !== undefined
+                            ? { defaultValue: value }
+                            : {})}
                     />
                 </div>
             )}
@@ -31,8 +34,11 @@ function InputBox({ inputName, placeholder, type, value, onChange }) {
                         className={styles.input_box}
                         type='text'
                         placeholder={placeholder}
-                        value={value}
-                        onChange={onChange}
+                        {...(value !== undefined && onChange
+                            ? { value, onChange }
+                            : value !== undefined
+                            ? { defaultValue: value }
+                            : {})}
                     />
                 </div>
             )}
@@ -43,8 +49,11 @@ function InputBox({ inputName, placeholder, type, value, onChange }) {
                         className={styles.input_box}
                         type='text'
                         placeholder={placeholder}
-                        value={value}
-                        onChange={onChange}
+                        {...(value !== undefined && onChange
+                            ? { value, onChange }
+                            : value !== undefined
+                            ? { defaultValue: value }
+                            : {})}
                     />
                 </div>
             )}
@@ -57,8 +66,11 @@ function InputBox({ inputName, placeholder, type, value, onChange }) {
                             className={styles.phone_number_input}
                             type='text'
                             placeholder={placeholder}
-                            value={value}
-                            onChange={onChange}
+                            {...(value !== undefined && onChange
+                                ? { value, onChange }
+                                : value !== undefined
+                                ? { defaultValue: value }
+                                : {})}
                         />
                     </div>
                 </div>

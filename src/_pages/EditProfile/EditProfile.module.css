@@ -7,6 +7,7 @@
     height: 852px;
     margin: 0px;
     padding: 0px;
+    overflow-x: hidden;
 }
 
 .page_header {
@@ -25,17 +26,32 @@
     gap: var(--space-regular);
     flex-grow: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     min-height: 0;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
 }
 
 .inputs_container {
     margin-bottom: var(--space-regular);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .button_row {
     display: flex;
     flex-direction: row;
     gap: var(--space-regular);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.delete_section {
+    margin-top: var(--space-regular);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }

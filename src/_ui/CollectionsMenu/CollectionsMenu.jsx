@@ -15,7 +15,6 @@ function CollectionsMenu({ type, onInfoClick, onEditClick, onDeleteClick }) {
                         xmlns='http://www.w3.org/2000/svg'>
                         <mask
                             id='mask0_22_780'
-                            maskType='alpha'
                             maskUnits='userSpaceOnUse'
                             x='0'
                             y='0'

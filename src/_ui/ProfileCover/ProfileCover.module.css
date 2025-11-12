@@ -5,6 +5,9 @@
     text-align: center;
     padding: var(--space-regular);
     gap: var(--space-small);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 .text_info {
 }

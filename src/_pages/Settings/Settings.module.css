@@ -11,11 +11,13 @@
 .page_content {
     display: flex;
     flex-direction: column;
-    padding: 0;
+    padding: 0 var(--space-regular);
     gap: var(--space-regular);
     flex-grow: 1;
     overflow-y: auto;
     min-height: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .top_section {
@@ -23,9 +25,13 @@
     flex-direction: column;
     gap: var(--space-small);
     margin-bottom: var(--space-large);
+    width: 100%;
+    box-sizing: border-box;
 }
 .bottom_section {
     display: flex;
     flex-direction: column;
     gap: var(--space-small);
+    width: 100%;
+    box-sizing: border-box;
 }
