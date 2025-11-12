@@ -28,7 +28,7 @@ function ProfileCover({
                             {username || "@username"}
                         </p>
                         <p className={styles.location}>
-                            {location || "Vancouver, Canada"}
+                            {location || "City, Country"}
                         </p>
                     </div>
                 </div>

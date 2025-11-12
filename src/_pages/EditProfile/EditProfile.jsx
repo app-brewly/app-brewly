@@ -24,7 +24,7 @@ function EditProfile() {
         profileImage: "./Image_Placeholder_.png",
     });
 
-    // Load profile data from localStorage on mount
+    // Load profile data from localStorage
     useEffect(() => {
         const savedProfile = localStorage.getItem(PROFILE_STORAGE_KEY);
         if (savedProfile) {
