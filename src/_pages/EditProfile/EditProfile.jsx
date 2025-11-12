@@ -7,13 +7,80 @@ import Button from "../../_ui/Button/Button";
 import InputBox from "../../_ui/InputBox/InputBox";
 import { useNavigate } from "react-router-dom";
 import Menu from "../../_ui/Menu/Menu";
+import { useState, useEffect, useRef } from "react";
+
+const PROFILE_STORAGE_KEY = "brewly_user_profile";
 
 function EditProfile() {
     const navigate = useNavigate();
-    const handleAccountInformationClick = () => {
-        navigate("./EditProfile");
+    const fileInputRef = useRef(null);
+
+    const [profileData, setProfileData] = useState({
+        fullName: "",
+        username: "",
+        location: "",
+        email: "",
+        phoneNumber: "",
+        profileImage: "./Image_Placeholder_.png",
+    });
+
+    // Load profile data from localStorage on mount
+    useEffect(() => {
+        const savedProfile = localStorage.getItem(PROFILE_STORAGE_KEY);
+        if (savedProfile) {
+            try {
+                const parsed = JSON.parse(savedProfile);
+                setProfileData({
+                    fullName: parsed.fullName || "",
+                    username: parsed.username || "",
+                    location: parsed.location || "",
+                    email: parsed.email || "",
+                    phoneNumber: parsed.phoneNumber || "",
+                    profileImage:
+                        parsed.profileImage || "./Image_Placeholder_.png",
+                });
+            } catch (error) {
+                console.error("Error loading profile data:", error);
+            }
+        }
+    }, []);
+
+    const handleInputChange = (field, value) => {
+        setProfileData((prev) => ({
+            ...prev,
+            [field]: value,
+        }));
     };
+
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProfileData((prev) => ({
+                    ...prev,
+                    profileImage: reader.result,
+                }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleImageClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleSave = () => {
+        localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profileData));
+        navigate("/Profile");
+    };
+
+    const handleCancel = () => {
+        navigate("/Profile");
+    };
+
     const handleDeleteAccountClick = () => {
+        localStorage.removeItem(PROFILE_STORAGE_KEY);
         navigate("/");
     };
     return (
@@ -27,46 +94,76 @@ function EditProfile() {
             </div>
 
             <div className={styles.page_content}>
+                <input
+                    type='file'
+                    ref={fileInputRef}
+                    onChange={handleImageChange}
+                    accept='image/*'
+                    style={{ display: "none" }}
+                />
                 <ProfileCover
                     type='info'
-                    img_src='./Image_Placeholder_.png'
+                    img_src={profileData.profileImage}
+                    onImageClick={handleImageClick}
                 />
                 <div className={styles.inputs_container}>
                     <InputBox
                         type='account'
                         inputName='Full Name'
                         placeholder='John Doe'
+                        value={profileData.fullName}
+                        onChange={(e) =>
+                            handleInputChange("fullName", e.target.value)
+                        }
                     />
                     <InputBox
                         type='account'
                         inputName='Username'
                         placeholder='@MrBeerBelly'
+                        value={profileData.username}
+                        onChange={(e) =>
+                            handleInputChange("username", e.target.value)
+                        }
                     />
 
                     <InputBox
                         type='account'
                         inputName='Location'
                         placeholder='Vancouver, Canada'
+                        value={profileData.location}
+                        onChange={(e) =>
+                            handleInputChange("location", e.target.value)
+                        }
                     />
                     <InputBox
                         type='account'
                         inputName='Email'
                         placeholder='ilovebeerlolz@gmail.com'
+                        value={profileData.email}
+                        onChange={(e) =>
+                            handleInputChange("email", e.target.value)
+                        }
                     />
                     <InputBox
                         type='number'
                         inputName='Phone Number'
                         placeholder='(778) 675 7653'
+                        value={profileData.phoneNumber}
+                        onChange={(e) =>
+                            handleInputChange("phoneNumber", e.target.value)
+                        }
                     />
                 </div>
                 <div className={styles.button_row}>
                     <Button
                         value='Cancel'
                         type='secondary'
+                        onClick={handleCancel}
                     />
                     <Button
                         value='Save'
                         type='primary'
+                        onClick={handleSave}
                     />
                 </div>
                 <div className={styles.delete_section}>

@@ -5,9 +5,36 @@ import Menu from "../../_ui/Menu/Menu";
 import ScrollList from "../../_ui/ScrollList/ScrollList";
 import styles from "./Profile.module.css";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+const PROFILE_STORAGE_KEY = "brewly_user_profile";
 
 function Profile() {
     const navigate = useNavigate();
+    const [profileData, setProfileData] = useState({
+        fullName: "",
+        username: "",
+        location: "",
+        profileImage: "./Image_Placeholder_.png",
+    });
+
+    useEffect(() => {
+        const savedProfile = localStorage.getItem(PROFILE_STORAGE_KEY);
+        if (savedProfile) {
+            try {
+                const parsed = JSON.parse(savedProfile);
+                setProfileData({
+                    fullName: parsed.fullName || "",
+                    username: parsed.username || "",
+                    location: parsed.location || "",
+                    profileImage:
+                        parsed.profileImage || "./Image_Placeholder_.png",
+                });
+            } catch (error) {
+                console.error("Error loading profile data:", error);
+            }
+        }
+    }, []);
 
     const handleCollectionClick = () => {
         navigate("/collections");
@@ -23,7 +50,10 @@ function Profile() {
             <div className={styles.page_content}>
                 <ProfileCover
                     type='regular'
-                    img_src='./Image_Placeholder_.png'
+                    img_src={profileData.profileImage}
+                    fullName={profileData.fullName}
+                    username={profileData.username}
+                    location={profileData.location}
                 />
 
                 <ScrollList
