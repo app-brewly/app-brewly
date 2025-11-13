@@ -1,94 +1,68 @@
+import { useState, useEffect } from "react";
 import StatusBar from "../../_ui/StatusBar/StatusBar";
 import NavBar from "../../_ui/NavBar/NavBar";
-import CollectionCard from "../../_ui/CollectionCard/CollectionCard";
+import BeerCard from "../../_ui/BeerCard/BeerCard";
 import Menu from "../../_ui/Menu/Menu";
 import styles from "./Collections.module.css";
-import BeerCard from "../../_ui/BeerCard/BeerCard";
-import Modal from "../../_ui/Modal/Modal";
-import Button from "../../_ui/Button/Button";
-
-import InputBox from "../../_ui/InputBox/InputBox";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 function Collections() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [collections, setCollections] = useState([]);
     const navigate = useNavigate();
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
+    // ✅ Load collections when page opens
+    useEffect(() => {
+        const saved = localStorage.getItem("collections");
+        if (saved) {
+            setCollections(JSON.parse(saved));
+        }
+    }, []);
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-    const handleOpenInfo = () => {
-        navigate("/CollectionItems");
+    const handleOpenInfo = (collectionName) => {
+        navigate(`/CollectionItems/${encodeURIComponent(collectionName)}`);
     };
 
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
                 <StatusBar />
-                <NavBar
-                    type='collections add'
-                    onAddClick={handleOpenModal}
-                />
-
-                {isModalOpen && (
-                    <Modal
-                        header='Save it to your Collection'
-                        onClose={handleCloseModal}>
-                        <InputBox type='regular' />
-                        <div className={styles.button_row}>
-                            <Button
-                                value='Cancel'
-                                type='secondary'
-                                onClick={handleCloseModal}
-                            />
-                            <Button
-                                value='Save'
-                                type='primary'
-                                onClick={handleCloseModal}
-                            />
-                        </div>
-                    </Modal>
-                )}
+                <NavBar type='collections add' />
             </div>
 
             <div className={styles.page_content}>
                 <div className={styles.page_column}>
-                    <div className={styles.page_row}>
-                        <BeerCard
-                            type='collections'
-                            collection_name='Artesanal'
-                            onCollectionClick={handleOpenInfo}
-                        />
-                        <BeerCard
-                            type='collections'
-                            collection_name='IPA'
-                        />
-                    </div>
-                    <div className={styles.page_row}>
-                        <BeerCard
-                            type='collections'
-                            collection_name='Wishlist'
-                        />
-                        <BeerCard
-                            type='collections'
-                            collection_name='D3 Friends'
-                        />
-                    </div>
-                    <div className={styles.page_row}>
-                        <BeerCard
-                            type='collections'
-                            collection_name='Favourites'
-                        />
-                        <BeerCard
-                            type='collections'
-                            collection_name='Snowy Days'
-                        />
-                    </div>
+                    {collections.length > 0 ? (
+                        Array.from({
+                            length: Math.ceil(collections.length / 2),
+                        }).map((_, rowIndex) => {
+                            const startIndex = rowIndex * 2;
+                            const rowCollections = collections.slice(
+                                startIndex,
+                                startIndex + 2
+                            );
+
+                            return (
+                                <div
+                                    key={rowIndex}
+                                    className={styles.page_row}>
+                                    {rowCollections.map((col, index) => (
+                                        <BeerCard
+                                            key={index}
+                                            type='collections'
+                                            collection_name={col.collectionName}
+                                            onCollectionClick={() =>
+                                                handleOpenInfo(
+                                                    col.collectionName
+                                                )
+                                            }
+                                        />
+                                    ))}
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <p className={styles.text}>No collections yet.</p>
+                    )}
                 </div>
             </div>
 

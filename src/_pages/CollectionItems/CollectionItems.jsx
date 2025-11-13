@@ -1,47 +1,41 @@
 import StatusBar from "../../_ui/StatusBar/StatusBar";
 import NavBar from "../../_ui/NavBar/NavBar";
-import CollectionCard from "../../_ui/CollectionCard/CollectionCard";
 import Menu from "../../_ui/Menu/Menu";
 import Modal from "../../_ui/Modal/Modal";
 import Button from "../../_ui/Button/Button";
 import BeerCard from "../../_ui/BeerCard/BeerCard";
 import CollectionsMenu from "../../_ui/CollectionsMenu/CollectionsMenu";
 
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import styles from "./CollectionItems.module.css";
 
 function CollectionItems() {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isOptionsOpen, setIsOptionOpen] = useState(false);
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const { collectionName } = useParams();
+    const [collection, setCollection] = useState(null);
     const navigate = useNavigate();
 
-    const handleKnowMore = () => {
-        navigate("/BeerInfo");
+    const handleKnowMore = (beerId) => {
+        navigate(`/BeerInfo/${encodeURIComponent(beerId)}`);
     };
 
-    const handleOptionsOpen = () => {
-        setIsOptionOpen(true);
-    };
-    const handleInfoClick = () => {
-        navigate("/CollectionInfo");
-    };
-    const handleEditClick = () => {
-        setIsEditModalOpen(true);
-    };
-    const handleEditModalClose = () => {
-        setIsEditModalOpen(false);
-    };
-    const handleDeleteClick = () => {
-        setIsDeleteModalOpen(true);
-    };
-    const handleDeleteModalClose = () => {
-        setIsDeleteModalOpen(false);
-    };
+    const handleOptionsOpen = () => setIsOptionOpen(true);
+    const handleEditModalClose = () => setIsEditModalOpen(false);
+    const handleDeleteModalClose = () => setIsDeleteModalOpen(false);
+
+    useEffect(() => {
+        const saved = localStorage.getItem("collections");
+        if (saved) {
+            const allCollections = JSON.parse(saved);
+            const found = allCollections.find(
+                (c) => c.collectionName === collectionName
+            );
+            setCollection(found || null);
+        }
+    }, [collectionName]);
 
     return (
         <div className={styles.page_container}>
@@ -49,10 +43,12 @@ function CollectionItems() {
                 <StatusBar />
                 <NavBar
                     type='collections menu'
-                    collection_name='Artesanal'
+                    collection_name={collectionName}
                     onOptionsClick={handleOptionsOpen}
                 />
             </div>
+
+            {/* OPTIONS MENU */}
             {isOptionsOpen && (
                 <div
                     className={styles.overlay}
@@ -62,14 +58,14 @@ function CollectionItems() {
                         onClick={(e) => e.stopPropagation()}>
                         <CollectionsMenu
                             type='info'
-                            onInfoClick={handleInfoClick}
-                            onDeleteClick={handleDeleteClick}
-                            onEditClick={handleEditClick}
+                            onDeleteClick={() => setIsDeleteModalOpen(true)}
+                            onEditClick={() => setIsEditModalOpen(true)}
                         />
                     </div>
                 </div>
             )}
 
+            {/* DELETE MODAL */}
             {isDeleteModalOpen && (
                 <Modal
                     header='Are you sure you want to delete this collection?'
@@ -89,6 +85,7 @@ function CollectionItems() {
                 </Modal>
             )}
 
+            {/* EDIT MODAL */}
             {isEditModalOpen && (
                 <Modal
                     header='Would you like to delete selected items from your collection?'
@@ -108,28 +105,42 @@ function CollectionItems() {
                 </Modal>
             )}
 
+            {/* DISPLAY BEERS IN COLLECTION */}
             <div className={styles.page_content}>
                 <div className={styles.page_column}>
-                    <div className={styles.page_row}>
-                        <BeerCard
-                            type='collection info'
-                            onKnowMoreClick={handleKnowMore}
-                        />
-                        <BeerCard
-                            type='collection info'
-                            onKnowMoreClick={handleKnowMore}
-                        />
-                    </div>
-                    <div className={styles.page_row}>
-                        <BeerCard
-                            type='collection info'
-                            onKnowMoreClick={handleKnowMore}
-                        />
-                        <BeerCard
-                            type='collection info'
-                            onKnowMoreClick={handleKnowMore}
-                        />
-                    </div>
+                    {collection && collection.beers.length > 0 ? (
+                        Array.from({
+                            length: Math.ceil(collection.beers.length / 2),
+                        }).map((_, rowIndex) => {
+                            const startIndex = rowIndex * 2;
+                            const rowBeers = collection.beers.slice(
+                                startIndex,
+                                startIndex + 2
+                            );
+
+                            return (
+                                <div
+                                    key={rowIndex}
+                                    className={styles.page_row}>
+                                    {rowBeers.map((beer) => (
+                                        <BeerCard
+                                            key={beer.id}
+                                            type='collection info'
+                                            beerName={beer.name}
+                                            beerId={beer.id}
+                                            onKnowMoreClick={() =>
+                                                handleKnowMore(beer.id)
+                                            }
+                                        />
+                                    ))}
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <p className={styles.empty_text}>
+                            No beers in this collection yet.
+                        </p>
+                    )}
                 </div>
             </div>
 

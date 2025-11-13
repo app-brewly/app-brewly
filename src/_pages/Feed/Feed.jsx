@@ -19,6 +19,10 @@ function Feed() {
     const [beers, setBeers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedBeer, setSelectedBeer] = useState(null);
+    const [collections, setCollections] = useState([]);
+    const [newCollectionName, setNewCollectionName] = useState("");
+
     const navigate = useNavigate();
 
     // Load beers from API
@@ -58,14 +62,139 @@ function Feed() {
             navigate(`/BeerInfo/${encodeURIComponent(beerId)}`);
         }
     };
-    const handleFav = () => {
-        setIsModalOpen(true);
-    };
+    // const handleFav = (beer) => {
+    //     setSelectedBeer(beer);
+    //     loadCollections();
+    //     setIsModalOpen(true);
+    // };
     const handleCreateCollection = () => {
         setIsModalOpen(false);
         setIsCreateModalOpen(true);
     };
+    // Load collections on mount and when modal opens
+    useEffect(() => {
+        const saved = localStorage.getItem("collections");
+        if (saved) {
+            try {
+                setCollections(JSON.parse(saved));
+            } catch (error) {
+                console.error("Error loading collections:", error);
+                setCollections([]);
+            }
+        } else {
+            setCollections([]);
+        }
+    }, []); // Remove storage event listener for now
 
+    // Reload collections when opening the modal
+    const handleFav = (beer) => {
+        setSelectedBeer(beer);
+        // Reload collections right before opening modal
+        const saved = localStorage.getItem("collections");
+        if (saved) {
+            setCollections(JSON.parse(saved));
+        }
+        setIsModalOpen(true);
+    };
+    //When user clicks "Save" after typing a name
+
+    const handleSaveNewCollection = () => {
+        console.log("Saving collection:", newCollectionName, selectedBeer);
+
+        if (!newCollectionName.trim() || !selectedBeer) {
+            console.log("Validation failed");
+            return;
+        }
+
+        const trimmedName = newCollectionName.trim();
+
+        setCollections((prev) => {
+            const existing = prev.find(
+                (c) =>
+                    c.collectionName.toLowerCase() === trimmedName.toLowerCase()
+            );
+
+            let updatedCollections;
+
+            if (existing) {
+                // Add beer only if not already in collection
+                const beerExists = existing.beers.some(
+                    (b) => b.id === selectedBeer.id
+                );
+                if (!beerExists) {
+                    existing.beers.push({
+                        id: selectedBeer.id,
+                        name: selectedBeer.name,
+                    });
+                }
+                updatedCollections = [...prev];
+            } else {
+                // Create a new collection
+                updatedCollections = [
+                    ...prev,
+                    {
+                        collectionName: trimmedName,
+                        beers: [
+                            { id: selectedBeer.id, name: selectedBeer.name },
+                        ],
+                    },
+                ];
+            }
+
+            // ✅ Save to localStorage INSIDE the setState callback
+            localStorage.setItem(
+                "collections",
+                JSON.stringify(updatedCollections)
+            );
+            console.log("Collections after save:", updatedCollections);
+
+            return updatedCollections;
+        });
+
+        // ✅ Reset form state
+        setNewCollectionName("");
+
+        // ✅ Close modal AFTER state update
+        setTimeout(() => {
+            handleCloseModal();
+        }, 0);
+    };
+    //Add beer to existing collection (when user clicks a card)
+    const handleAddToExistingCollection = (collectionName) => {
+        if (!selectedBeer) return;
+
+        setCollections((prev) => {
+            const updatedCollections = prev.map((col) => {
+                if (col.collectionName === collectionName) {
+                    const beerExists = col.beers.some(
+                        (b) => b.id === selectedBeer.id
+                    );
+                    if (!beerExists) {
+                        return {
+                            ...col,
+                            beers: [
+                                ...col.beers,
+                                {
+                                    id: selectedBeer.id,
+                                    name: selectedBeer.name,
+                                },
+                            ],
+                        };
+                    }
+                }
+                return col;
+            });
+
+            // Save to localStorage
+            localStorage.setItem(
+                "collections",
+                JSON.stringify(updatedCollections)
+            );
+            return updatedCollections;
+        });
+
+        handleCloseModal();
+    };
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -113,7 +242,9 @@ function Feed() {
                                                 onKnowMoreClick={() =>
                                                     handleKnowMore(beer.id)
                                                 }
-                                                onFavClick={handleFav}
+                                                onFavClick={() =>
+                                                    handleFav(beer)
+                                                }
                                             />
                                         ))}
                                     </div>
@@ -130,12 +261,17 @@ function Feed() {
                                     type='button'
                                     onClick={handleCreateCollection}
                                 />
-                                <CollectionCard
-                                    collection_name='IPA'
-                                    onClick={handleCloseModal}
-                                />
-                                <CollectionCard collection_name='Artesanal' />
-                                <CollectionCard collection_name='Favorites' />
+                                {collections.map((col, index) => (
+                                    <CollectionCard
+                                        key={index}
+                                        collection_name={col.collectionName}
+                                        onClick={() =>
+                                            handleAddToExistingCollection(
+                                                col.collectionName
+                                            )
+                                        }
+                                    />
+                                ))}
                             </Modal>
                         </>
                     )}
@@ -143,7 +279,14 @@ function Feed() {
                         <Modal
                             header='Save it to your Collection'
                             onClose={handleCloseModal}>
-                            <InputBox type='regular' />
+                            <InputBox
+                                type='regular'
+                                value={newCollectionName}
+                                onChange={(e) =>
+                                    setNewCollectionName(e.target.value)
+                                }
+                                placeholder='Collection name'
+                            />
                             <div className={styles.button_row}>
                                 <Button
                                     value='Cancel'
@@ -153,7 +296,7 @@ function Feed() {
                                 <Button
                                     value='Save'
                                     type='primary'
-                                    onClick={handleCloseModal}
+                                    onClick={handleSaveNewCollection}
                                 />
                             </div>
                         </Modal>
