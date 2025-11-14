@@ -27,6 +27,7 @@ function CreateCollection({ type, onClick }) {
                     </p>
                 </div>
             )}
+
             {type === "small" && (
                 <div className={styles.create_collection_container}>
                     <div
@@ -47,6 +48,7 @@ function CreateCollection({ type, onClick }) {
                     </div>
                 </div>
             )}
+
             {type === "saved" && (
                 <div className={styles.create_collection_container}>
                     <div
