@@ -83,7 +83,7 @@ function App() {
                         element={<CollectionInfo />}
                     />
                     <Route
-                        path='/CollectionItems'
+                        path='/CollectionItems/:collectionName'
                         element={<CollectionItems />}
                     />
                     <Route

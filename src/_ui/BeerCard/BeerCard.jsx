@@ -43,7 +43,7 @@ function BeerCard({
                     className={styles.collection_container}
                     onClick={onCollectionClick}>
                     <img
-                        src={beercan}
+                        src={image || beercan}
                         alt='Beer can'
                         className={styles.card_image}
                     />
