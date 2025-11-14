@@ -7,6 +7,7 @@
     border-radius: var(--space-extra-small);
     border: 1px solid var(--black-200);
     width: 100%;
+    position: relative;
 }
 
 .search_icon {
@@ -21,6 +22,46 @@
     font-size: var(--font-size-medium);
 }
 
+.search_input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+}
+
 .search_icon:hover {
     fill: var(--primary-900);
+}
+
+.filter_icon {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    margin-left: 8px;
+    color: var(--black-300);
+}
+
+.dropdown {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 6px 0;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    z-index: 30;
+}
+
+.dropdown p {
+    margin: 0;
+    padding: 10px 14px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dropdown p:hover {
+    background: #f3f3f3;
 }

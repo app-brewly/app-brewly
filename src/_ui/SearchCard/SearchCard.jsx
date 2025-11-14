@@ -1,7 +1,7 @@
 import styles from "./SearchCard.module.css";
 import beercan from "../../assets/beercan.png";
 
-function SearchCard({ image, name, brewery }) {
+function SearchCard({ image, name, brewery, onKnowMoreClick }) {
     return (
         <div className={styles.card_container}>
             <div className={styles.card_content}>
@@ -15,7 +15,9 @@ function SearchCard({ image, name, brewery }) {
                     <p className={styles.card_subtitle}>{brewery}</p>
                 </div>
             </div>
-            <div className={styles.card_button}>
+            <div
+                className={styles.card_button}
+                onClick={onKnowMoreClick}>
                 <svg
                     className={styles.card_icon}
                     xmlns='http://www.w3.org/2000/svg'

@@ -6,6 +6,7 @@ import SearchCard from "../../_ui/SearchCard/SearchCard";
 import StatusBar from "../../_ui/StatusBar/StatusBar";
 import ArrowBack from "../../_ui/ArrowBack/ArrowBack";
 import { fetchBeers, transformBeerData } from "../../services/beerApi";
+import { useNavigate } from "react-router-dom";
 
 function SearchPage() {
     const [beers, setBeers] = useState([]);
@@ -13,6 +14,9 @@ function SearchPage() {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
+
+    const [filterOption, setFilterOption] = useState("name");
 
     // Fetch beers on mount
     useEffect(() => {
@@ -36,15 +40,31 @@ function SearchPage() {
         loadBeers();
     }, []);
 
-    // Filter beers by submitted search query
-    const filteredBeers = beers.filter((beer) =>
-        beer.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    // Filtering logic
+    const filteredBeers = beers.filter((beer) => {
+        const query = searchQuery.toLowerCase();
+
+        if (filterOption === "name") {
+            return beer.name.toLowerCase().includes(query);
+        }
+
+        if (filterOption === "brewery") {
+            return (beer.brewery || beer.tagline || "")
+                .toLowerCase()
+                .includes(query);
+        }
+
+        if (filterOption === "abv") {
+            return beer.abv?.toString().includes(query);
+        }
+
+        return true;
+    });
 
     // Handle Enter key
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
-            setSearchQuery(searchTerm); // Only update the query when Enter is pressed
+            setSearchQuery(searchTerm); // Only update when Enter is pressed
         }
     };
 
@@ -54,11 +74,13 @@ function SearchPage() {
                 <StatusBar />
                 <div className={styles.page_nav}>
                     <ArrowBack />
+
                     <Search
                         value={searchTerm}
                         onChange={setSearchTerm}
                         placeholder='Search beers...'
-                        onKeyDown={handleKeyDown} // Add key handler
+                        onKeyDown={handleKeyDown}
+                        onFilterChange={setFilterOption} // <--- FILTER CONNECTED
                     />
                 </div>
             </div>
@@ -79,6 +101,13 @@ function SearchPage() {
                                 image={beer.image}
                                 name={beer.name}
                                 brewery={beer.tagline || beer.brewery}
+                                onKnowMoreClick={() =>
+                                    navigate(
+                                        `/BeerInfo/${encodeURIComponent(
+                                            beer.id
+                                        )}`
+                                    )
+                                }
                             />
                         ))}
                 </div>
