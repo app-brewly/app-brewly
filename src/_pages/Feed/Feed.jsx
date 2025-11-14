@@ -203,6 +203,13 @@ function Feed() {
         setShowConfirmation(true);
     };
 
+    //Checking if beer is in any collection
+    const isBeerFavorited = (beerId) => {
+        return collections.some((col) =>
+            col.beers.some((b) => b.id === beerId)
+        );
+    };
+
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -250,6 +257,9 @@ function Feed() {
                                                 onKnowMoreClick={() =>
                                                     handleKnowMore(beer.id)
                                                 }
+                                                isFavorited={isBeerFavorited(
+                                                    beer.id
+                                                )}
                                                 onFavClick={() =>
                                                     handleFav(beer)
                                                 }
@@ -313,9 +323,8 @@ function Feed() {
             </div>
             {showConfirmation && (
                 <Modal
-                    header='Save it to your Collection'
+                    header={confirmationMessage}
                     onClose={() => setShowConfirmation(false)}>
-                    <p className={styles.text}>{confirmationMessage}</p>
                     <Button
                         value='OK'
                         type='primary'

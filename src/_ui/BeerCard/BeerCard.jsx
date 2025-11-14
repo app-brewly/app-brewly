@@ -8,12 +8,16 @@ function BeerCard({
     collection_name,
     onCollectionClick,
     onKnowMoreClick,
-    onFavClick,
+
     // Props from API
     beerName,
     brewery,
     image,
     beerId,
+
+    //Favorite Props
+    isFavorited,
+    onFavClick,
 }) {
     return (
         <div>
@@ -33,7 +37,11 @@ function BeerCard({
                         </p>
                     </div>
                     <div className={styles.button_container}>
-                        <ButtonFav onClick={onFavClick} />
+                        <ButtonFav
+                            onClick={onFavClick}
+                            isFavorited={isFavorited}
+                        />
+
                         <ButtonKnowMore onClick={onKnowMoreClick} />
                     </div>
                 </div>
