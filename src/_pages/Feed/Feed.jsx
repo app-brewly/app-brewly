@@ -22,6 +22,8 @@ function Feed() {
     const [selectedBeer, setSelectedBeer] = useState(null);
     const [collections, setCollections] = useState([]);
     const [newCollectionName, setNewCollectionName] = useState("");
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [confirmationMessage, setConfirmationMessage] = useState("");
 
     const navigate = useNavigate();
 
@@ -93,24 +95,18 @@ function Feed() {
         setIsModalOpen(true);
     };
     //When user clicks "Save" after typing a name
-
     const handleSaveNewCollection = () => {
-        console.log("Saving collection:", newCollectionName, selectedBeer);
-
-        if (!newCollectionName.trim() || !selectedBeer) {
-            console.log("Validation failed");
-            return;
-        }
+        if (!newCollectionName.trim() || !selectedBeer) return;
 
         const trimmedName = newCollectionName.trim();
+
+        let updatedCollections = [];
 
         setCollections((prev) => {
             const existing = prev.find(
                 (c) =>
                     c.collectionName.toLowerCase() === trimmedName.toLowerCase()
             );
-
-            let updatedCollections;
 
             if (existing) {
                 const beerExists = existing.beers.some(
@@ -148,23 +144,26 @@ function Feed() {
                 "collections",
                 JSON.stringify(updatedCollections)
             );
-            console.log("Collections after save:", updatedCollections);
 
             return updatedCollections;
         });
 
+        handleCloseModal();
+
+        setConfirmationMessage(
+            `Collection "${trimmedName}" has been created and saved!`
+        );
+        setShowConfirmation(true);
+
         setNewCollectionName("");
-
-        setTimeout(() => {
-            handleCloseModal();
-        }, 0);
     };
-
     const handleAddToExistingCollection = (collectionName) => {
         if (!selectedBeer) return;
 
+        let updatedCollections = [];
+
         setCollections((prev) => {
-            const updatedCollections = prev.map((col) => {
+            updatedCollections = prev.map((col) => {
                 if (col.collectionName === collectionName) {
                     const beerExists = col.beers.some(
                         (b) => b.id === selectedBeer.id
@@ -192,11 +191,18 @@ function Feed() {
                 "collections",
                 JSON.stringify(updatedCollections)
             );
+
             return updatedCollections;
         });
 
         handleCloseModal();
+
+        setConfirmationMessage(
+            `"${selectedBeer.name}" has been added to "${collectionName}"`
+        );
+        setShowConfirmation(true);
     };
+
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -305,6 +311,18 @@ function Feed() {
                     )}
                 </div>
             </div>
+            {showConfirmation && (
+                <Modal
+                    header='Save it to your Collection'
+                    onClose={() => setShowConfirmation(false)}>
+                    <p className={styles.text}>{confirmationMessage}</p>
+                    <Button
+                        value='OK'
+                        type='primary'
+                        onClick={() => setShowConfirmation(false)}
+                    />
+                </Modal>
+            )}
 
             <Menu />
         </div>
