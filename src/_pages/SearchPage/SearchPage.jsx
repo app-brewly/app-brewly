@@ -40,7 +40,7 @@ function SearchPage() {
         loadBeers();
     }, []);
 
-    // Filtering logic
+    // Filtering logic (name, ABV, IBU)
     const filteredBeers = beers.filter((beer) => {
         const query = searchQuery.toLowerCase();
 
@@ -48,14 +48,12 @@ function SearchPage() {
             return beer.name.toLowerCase().includes(query);
         }
 
-        if (filterOption === "brewery") {
-            return (beer.brewery || beer.tagline || "")
-                .toLowerCase()
-                .includes(query);
-        }
-
         if (filterOption === "abv") {
             return beer.abv?.toString().includes(query);
+        }
+
+        if (filterOption === "ibu") {
+            return beer.ibu?.toString().includes(query);
         }
 
         return true;
@@ -80,7 +78,7 @@ function SearchPage() {
                         onChange={setSearchTerm}
                         placeholder='Search beers...'
                         onKeyDown={handleKeyDown}
-                        onFilterChange={setFilterOption} // <--- FILTER CONNECTED
+                        onFilterChange={setFilterOption} // FILTER CONNECTED
                     />
                 </div>
             </div>
