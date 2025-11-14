@@ -39,9 +39,7 @@ function BeerCard({
                 </div>
             )}
             {type === "collections" && (
-                <div
-                    className={styles.collection_container}
-                    onClick={onCollectionClick}>
+                <div className={styles.collection_container}>
                     <img
                         src={image || beercan}
                         alt='Beer can'
@@ -73,9 +71,7 @@ function BeerCard({
                 </div>
             )}
             {type === "scroll" && (
-                <div
-                    className={styles.scroll_container}
-                    onClick={onCollectionClick}>
+                <div className={styles.scroll_container}>
                     <img
                         src={beercan}
                         alt='Beer can'

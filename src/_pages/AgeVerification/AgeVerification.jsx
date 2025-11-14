@@ -39,8 +39,7 @@ function AgeVerification() {
                 <div className={styles.input_container}>
                     <InputBox
                         type='label'
-                        placeholder='Birthday'
-                        value='DD/MM/YYYY'
+                        placeholder='DD/MM/YYYY'
                     />
                     <DropdownMenu
                         title='Country'

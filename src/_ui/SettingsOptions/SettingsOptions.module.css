@@ -1,3 +1,9 @@
+.settings_container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .setting_row,
 .setting_action_row {
     display: flex;
@@ -7,9 +13,11 @@
     gap: var(--space-small);
     padding: var(--space-regular);
     border-radius: var(--space-small);
-    width: 361px;
+    width: 100%;
+    max-width: 100%;
     min-height: 60px;
     border: none;
+    box-sizing: border-box;
 }
 
 .setting_row {

@@ -21,6 +21,8 @@ import CollectionInfo from "./_pages/CollectionInfo/CollectionInfo";
 import Profile from "./_pages/Profile/Profile";
 import Settings from "./_pages/Settings/Settings";
 import EditProfile from "./_pages/EditProfile/EditProfile";
+import TermsOfUse from "./_pages/TermsOfUse/TermsOfUse";
+import HelpSupport from "./_pages/HelpSupport/HelpSupport";
 
 function App() {
     return (
@@ -97,6 +99,14 @@ function App() {
                     <Route
                         path='/EditProfile'
                         element={<EditProfile />}
+                    />
+                    <Route
+                        path='/TermsOfUse'
+                        element={<TermsOfUse />}
+                    />
+                    <Route
+                        path='/HelpSupport'
+                        element={<HelpSupport />}
                     />
                 </Routes>
             </Router>

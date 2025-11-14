@@ -8,21 +8,31 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
             {type === "collections" && (
                 <div className={styles.section_container}>
                     <div className={styles.section_name}>{section_name}</div>
-                        <div className={styles.card_container}>
-                            <BeerCard
-                                type='scroll'
-                                collection_name='IPAs'
-                            />
-                            <BeerCard
-                                type='scroll'
-                                collection_name='Artesanals'
-                            />
-                            <BeerCard
-                                type='scroll'
-                                collection_name='Favorites'
-                            />
+                    <div className={styles.card_container}>
+                        <BeerCard
+                            type='scroll'
+                            collection_name='IPAs'
+                        />
+                        <BeerCard
+                            type='scroll'
+                            collection_name='Artesanals'
+                        />
+                        <BeerCard
+                            type='scroll'
+                            collection_name='Favorites'
+                        />
 
-                             <div className={styles.scroll_arrow}>
+                        <div
+                            className={styles.scroll_arrow}
+                            onClick={onItemClick}
+                            role='button'
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    onItemClick();
+                                }
+                            }}>
                             <svg
                                 width='34'
                                 height='32'
@@ -38,29 +48,36 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                                 />
                             </svg>
                         </div>
-                        </div>
-        
-
-                       
+                    </div>
                 </div>
             )}
             {type === "wishlist" && (
-                 <div className={styles.section_container}>
+                <div className={styles.section_container}>
                     <div className={styles.section_name}>{section_name}</div>
-                        <div className={styles.card_container}>
-                            <BeerCard
-                                type='scroll'
-                                collection_name='Heineken'
-                            />
-                            <BeerCard
-                                type='scroll'
-                                collection_name='Heineken'
-                            />
-                            <BeerCard
-                                type='scroll'
-                                collection_name='Heineken'
-                            />
-                             <div className={styles.scroll_arrow}>
+                    <div className={styles.card_container}>
+                        <BeerCard
+                            type='scroll'
+                            collection_name='Heineken'
+                        />
+                        <BeerCard
+                            type='scroll'
+                            collection_name='Heineken'
+                        />
+                        <BeerCard
+                            type='scroll'
+                            collection_name='Heineken'
+                        />
+                        <div
+                            className={styles.scroll_arrow}
+                            onClick={onItemClick}
+                            role='button'
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    onItemClick();
+                                }
+                            }}>
                             <svg
                                 width='34'
                                 height='32'
@@ -76,31 +93,37 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                                 />
                             </svg>
                         </div>
-                        </div>
-        
-
-                       
+                    </div>
                 </div>
-    
             )}
             {type === "reviews" && (
-              <div className={styles.section_container}>
+                <div className={styles.section_container}>
                     <div className={styles.section_name}>{section_name}</div>
-                        <div className={styles.card_container}>
-                            <BeerCard
-                                type='scroll'
-                                collection_name='I like it but..'
-                            />
-                            <BeerCard
-                                type='scroll'
-                                collection_name='Very good!'
-                            />
-                            <BeerCard
-                                type='scroll'
-                                collection_name='Not my taste'
-                            />
-                           
-                             <div className={styles.scroll_arrow}>
+                    <div className={styles.card_container}>
+                        <BeerCard
+                            type='scroll'
+                            collection_name='I like it but..'
+                        />
+                        <BeerCard
+                            type='scroll'
+                            collection_name='Very good!'
+                        />
+                        <BeerCard
+                            type='scroll'
+                            collection_name='Not my taste'
+                        />
+
+                        <div
+                            className={styles.scroll_arrow}
+                            onClick={onItemClick}
+                            role='button'
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    onItemClick();
+                                }
+                            }}>
                             <svg
                                 width='34'
                                 height='32'
@@ -116,12 +139,8 @@ function ScrollList({ onItemClick, collection_name, type, section_name }) {
                                 />
                             </svg>
                         </div>
-                        </div>
-        
-
-                       
+                    </div>
                 </div>
-            
             )}
         </>
     );

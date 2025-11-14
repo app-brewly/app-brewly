@@ -5,6 +5,9 @@
     text-align: center;
     padding: var(--space-regular);
     gap: var(--space-small);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 .text_info {
 }
@@ -46,4 +49,10 @@
     align-items: center;
     justify-content: center;
     border: 1px solid var(--black-500);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.change_image:hover {
+    background-color: var(--secondary-100);
 }

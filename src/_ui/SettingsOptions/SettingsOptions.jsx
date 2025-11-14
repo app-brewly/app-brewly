@@ -15,7 +15,7 @@ function SettingsOptions({
         }`;
 
     return (
-        <div>
+        <div className={styles.settings_container}>
             {type === "dual_icon" && (
                 <button
                     type='button'
@@ -54,7 +54,8 @@ function SettingsOptions({
             {type === "direct_action" && (
                 <button
                     type='button'
-                    className={cx(styles.setting_action_row)}>
+                    className={cx(styles.setting_action_row)}
+                    onClick={onArrowClick}>
                     <div className={styles.left_icon}>{icon_left}</div>
                     <div className={styles.setting_title}>{setting_title}</div>
                 </button>

@@ -37,8 +37,7 @@ function LogIn() {
                 <div className={styles.input_container}>
                     <InputBox
                         type='regular'
-                        placeholder='Birthday'
-                        value='Email'
+                        placeholder='Email'
                     />
                 </div>
                 <Button
