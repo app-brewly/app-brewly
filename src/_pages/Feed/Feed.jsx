@@ -62,11 +62,7 @@ function Feed() {
             navigate(`/BeerInfo/${encodeURIComponent(beerId)}`);
         }
     };
-    // const handleFav = (beer) => {
-    //     setSelectedBeer(beer);
-    //     loadCollections();
-    //     setIsModalOpen(true);
-    // };
+
     const handleCreateCollection = () => {
         setIsModalOpen(false);
         setIsCreateModalOpen(true);
@@ -117,7 +113,6 @@ function Feed() {
             let updatedCollections;
 
             if (existing) {
-                // Add beer only if not already in collection
                 const beerExists = existing.beers.some(
                     (b) => b.id === selectedBeer.id
                 );
@@ -125,23 +120,30 @@ function Feed() {
                     existing.beers.push({
                         id: selectedBeer.id,
                         name: selectedBeer.name,
+                        image: selectedBeer.image,
+                        tagline: selectedBeer.tagline,
+                        brewery: selectedBeer.brewery,
                     });
                 }
                 updatedCollections = [...prev];
             } else {
-                // Create a new collection
                 updatedCollections = [
                     ...prev,
                     {
                         collectionName: trimmedName,
                         beers: [
-                            { id: selectedBeer.id, name: selectedBeer.name },
+                            {
+                                id: selectedBeer.id,
+                                name: selectedBeer.name,
+                                image: selectedBeer.image,
+                                tagline: selectedBeer.tagline,
+                                brewery: selectedBeer.brewery,
+                            },
                         ],
                     },
                 ];
             }
 
-            // ✅ Save to localStorage INSIDE the setState callback
             localStorage.setItem(
                 "collections",
                 JSON.stringify(updatedCollections)
@@ -151,15 +153,13 @@ function Feed() {
             return updatedCollections;
         });
 
-        // ✅ Reset form state
         setNewCollectionName("");
 
-        // ✅ Close modal AFTER state update
         setTimeout(() => {
             handleCloseModal();
         }, 0);
     };
-    //Add beer to existing collection (when user clicks a card)
+
     const handleAddToExistingCollection = (collectionName) => {
         if (!selectedBeer) return;
 
@@ -177,6 +177,9 @@ function Feed() {
                                 {
                                     id: selectedBeer.id,
                                     name: selectedBeer.name,
+                                    image: selectedBeer.image,
+                                    tagline: selectedBeer.tagline,
+                                    brewery: selectedBeer.brewery,
                                 },
                             ],
                         };
@@ -185,7 +188,6 @@ function Feed() {
                 return col;
             });
 
-            // Save to localStorage
             localStorage.setItem(
                 "collections",
                 JSON.stringify(updatedCollections)

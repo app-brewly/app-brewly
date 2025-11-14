@@ -5,6 +5,7 @@ import Modal from "../../_ui/Modal/Modal";
 import Button from "../../_ui/Button/Button";
 import BeerCard from "../../_ui/BeerCard/BeerCard";
 import CollectionsMenu from "../../_ui/CollectionsMenu/CollectionsMenu";
+import { fetchBeers, transformBeerData } from "../../services/beerApi";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -15,7 +16,10 @@ function CollectionItems() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isOptionsOpen, setIsOptionOpen] = useState(false);
     const { collectionName } = useParams();
+    const [beers, setBeers] = useState([]);
     const [collection, setCollection] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const handleKnowMore = (beerId) => {
@@ -25,6 +29,28 @@ function CollectionItems() {
     const handleOptionsOpen = () => setIsOptionOpen(true);
     const handleEditModalClose = () => setIsEditModalOpen(false);
     const handleDeleteModalClose = () => setIsDeleteModalOpen(false);
+
+    useEffect(() => {
+        const loadBeers = async () => {
+            try {
+                setLoading(true);
+                const data = await fetchBeers({
+                    per_page: 50,
+                    page: 1,
+                });
+
+                const transformedBeers = data.map(transformBeerData);
+                setBeers(transformedBeers);
+            } catch (err) {
+                console.error("Erro ao carregar cervejas:", err);
+                setError(`Erro ao carregar cervejas: ${err.message}`);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadBeers();
+    }, []);
 
     useEffect(() => {
         const saved = localStorage.getItem("collections");
@@ -58,6 +84,7 @@ function CollectionItems() {
                         onClick={(e) => e.stopPropagation()}>
                         <CollectionsMenu
                             type='info'
+                            onInfoClick={() => navigate("/CollectionInfo")}
                             onDeleteClick={() => setIsDeleteModalOpen(true)}
                             onEditClick={() => setIsEditModalOpen(true)}
                         />
@@ -105,7 +132,7 @@ function CollectionItems() {
                 </Modal>
             )}
 
-            {/* DISPLAY BEERS IN COLLECTION */}
+            {/* DISPLAY BEERS */}
             <div className={styles.page_content}>
                 <div className={styles.page_column}>
                     {collection && collection.beers.length > 0 ? (
@@ -122,17 +149,27 @@ function CollectionItems() {
                                 <div
                                     key={rowIndex}
                                     className={styles.page_row}>
-                                    {rowBeers.map((beer) => (
-                                        <BeerCard
-                                            key={beer.id}
-                                            type='collection info'
-                                            beerName={beer.name}
-                                            beerId={beer.id}
-                                            onKnowMoreClick={() =>
-                                                handleKnowMore(beer.id)
-                                            }
-                                        />
-                                    ))}
+                                    {rowBeers.map((beer) => {
+                                        const beerData = beers.find(
+                                            (b) => b.id === beer.id
+                                        );
+
+                                        return (
+                                            <BeerCard
+                                                key={beer.id}
+                                                type='collection info'
+                                                beerName={beer.name}
+                                                brewery={
+                                                    beer.tagline || beer.brewery
+                                                }
+                                                beerId={beer.id}
+                                                image={beerData?.image} // ✅ FIXED
+                                                onKnowMoreClick={() =>
+                                                    handleKnowMore(beer.id)
+                                                }
+                                            />
+                                        );
+                                    })}
                                 </div>
                             );
                         })
