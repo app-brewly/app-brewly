@@ -73,6 +73,7 @@ function Search({
             {/* Dropdown */}
             {isOpen && (
                 <div className={styles.dropdown}>
+                    {/*Items in the dropdown */}
                     <p
                         className={styles.dropdown_item}
                         onClick={() => handleSelect("name")}>
