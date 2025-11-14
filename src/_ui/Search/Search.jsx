@@ -73,9 +73,21 @@ function Search({
             {/* Dropdown */}
             {isOpen && (
                 <div className={styles.dropdown}>
-                    <p onClick={() => handleSelect("name")}>Name</p>
-                    <p onClick={() => handleSelect("abv")}>ABV</p>
-                    <p onClick={() => handleSelect("ibu")}>IBU</p>
+                    <p
+                        className={styles.dropdown_item}
+                        onClick={() => handleSelect("name")}>
+                        Name
+                    </p>
+                    <p
+                        className={styles.dropdown_item}
+                        onClick={() => handleSelect("abv")}>
+                        ABV
+                    </p>
+                    <p
+                        className={styles.dropdown_item}
+                        onClick={() => handleSelect("ibu")}>
+                        IBU
+                    </p>
                 </div>
             )}
         </div>
