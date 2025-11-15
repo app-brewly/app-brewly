@@ -8,16 +8,28 @@
 import styles from "./Button.module.css";
 import classNames from "classnames";
 
-function Button({ type, isDisabled = false, icon, size, value, onClick }) {
-    const buttonClasses = classNames(styles.button, {
-        [styles.small]: size === "small",
-        [styles.large]: size === "large",
-        [styles.primary]: type === "primary",
-        [styles.secondary]: type === "secondary",
-        [styles.terciary]: type === "terciary",
-        [styles.disabled]: isDisabled,
-        [styles.error]: type === "warning",
-    });
+function Button({
+    type,
+    isDisabled = false,
+    icon,
+    size,
+    value,
+    onClick,
+    className,
+}) {
+    const buttonClasses = classNames(
+        styles.button,
+        {
+            [styles.small]: size === "small",
+            [styles.large]: size === "large",
+            [styles.primary]: type === "primary",
+            [styles.secondary]: type === "secondary",
+            [styles.terciary]: type === "terciary",
+            [styles.disabled]: isDisabled,
+            [styles.error]: type === "warning",
+        },
+        className
+    );
 
     return (
         <input

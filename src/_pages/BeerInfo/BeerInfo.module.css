@@ -7,6 +7,7 @@
     height: 852px;
     margin: 0px;
     padding: 0 var(--space-regular);
+    box-sizing: border-box;
 }
 
 .page_header {
@@ -31,8 +32,10 @@
     gap: var(--space-regular);
     flex-grow: 1;
     overflow-y: auto;
+
     min-height: 0;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
     align-items: center;
 }
@@ -124,6 +127,9 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-regular);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .review_actions {
@@ -132,12 +138,21 @@
     gap: var(--space-regular);
     margin-bottom: var(--space-regular);
     flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .review_item {
     border: 2px solid var(--primary-100);
     padding: var(--space-regular);
     border-radius: var(--space-regular);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .edit_icon {
@@ -157,12 +172,43 @@
     font-weight: var(--font-weight-bold);
     border-radius: var(--space-extra-small);
     border: 2px solid var(--primary-500);
+    flex-shrink: 1;
+    min-width: 0;
+    box-sizing: border-box;
 }
+
+.reviews_section h3,
+.reviews_section p {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 var(--space-small) 0;
+}
+
+.review_item p {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    box-sizing: border-box;
+    margin: 0;
+}
+
 .review_input {
     margin-top: var(--space-regular);
     display: flex;
     flex-direction: column;
     gap: var(--space-regular);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.review_button {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
 }
 
 .button_row {

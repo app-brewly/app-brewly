@@ -74,15 +74,30 @@ function BeerInfo() {
     useEffect(() => {
         if (!beer) return;
 
-        const savedCollections =
-            JSON.parse(localStorage.getItem("collections")) || [];
+        const checkFavoriteStatus = () => {
+            const savedCollections =
+                JSON.parse(localStorage.getItem("collections")) || [];
 
-        // Check if this beer is in any collection
-        const exists = savedCollections.some((col) =>
-            col.beers.some((b) => b.id === beer.id)
-        );
+            // Check if this beer is in any collection
+            const exists = savedCollections.some((col) =>
+                col.beers.some((b) => b.id === beer.id)
+            );
 
-        setIsFavorited(exists);
+            setIsFavorited(exists);
+        };
+
+        checkFavoriteStatus();
+
+        // Listen for storage changes to update favorite status
+        const handleStorageChange = () => {
+            checkFavoriteStatus();
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
     }, [beer, collections]);
 
     // Load reviews from localStorage
@@ -94,13 +109,32 @@ function BeerInfo() {
     const handleFav = () => {
         setSelectedBeer(beer);
         const saved = localStorage.getItem("collections");
-        if (saved) setCollections(JSON.parse(saved));
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            setCollections(parsed);
+
+            // Update favorite state when opening modal
+            const existsInAnyCollection = parsed.some((col) =>
+                col.beers.some((b) => b.id === beer.id)
+            );
+            setIsFavorited(existsInAnyCollection);
+        }
         setIsCollectionModalOpen(true);
     };
 
     const handleCloseModal = () => {
         setIsCollectionModalOpen(false);
         setIsCreateCollectionOpen(false);
+
+        // Update favorite state when closing modal
+        if (beer) {
+            const savedCollections =
+                JSON.parse(localStorage.getItem("collections")) || [];
+            const existsInAnyCollection = savedCollections.some((col) =>
+                col.beers.some((b) => b.id === beer.id)
+            );
+            setIsFavorited(existsInAnyCollection);
+        }
     };
 
     const handleCreateCollection = () => {
@@ -151,10 +185,17 @@ function BeerInfo() {
                 "collections",
                 JSON.stringify(updatedCollections)
             );
-            setIsFavorited(true);
 
             return updatedCollections;
         });
+
+        // Update favorite state based on whether beer is in any collection
+        const savedCollections =
+            JSON.parse(localStorage.getItem("collections")) || [];
+        const existsInAnyCollection = savedCollections.some((col) =>
+            col.beers.some((b) => b.id === selectedBeer.id)
+        );
+        setIsFavorited(existsInAnyCollection);
 
         setNewCollectionName("");
         handleCloseModal();
@@ -170,6 +211,7 @@ function BeerInfo() {
         if (!selectedBeer) return;
 
         let updatedCollections = [];
+        let wasRemoved = false;
 
         setCollections((prev) => {
             updatedCollections = prev.map((col) => {
@@ -177,7 +219,17 @@ function BeerInfo() {
                     const beerExists = col.beers.some(
                         (b) => b.id === selectedBeer.id
                     );
-                    if (!beerExists) {
+                    if (beerExists) {
+                        // Remove beer from collection
+                        wasRemoved = true;
+                        return {
+                            ...col,
+                            beers: col.beers.filter(
+                                (b) => b.id !== selectedBeer.id
+                            ),
+                        };
+                    } else {
+                        // Add beer to collection
                         return {
                             ...col,
                             beers: [
@@ -201,15 +253,24 @@ function BeerInfo() {
             return updatedCollections;
         });
 
+        // Update favorite state based on whether beer is in any collection
+        const savedCollections =
+            JSON.parse(localStorage.getItem("collections")) || [];
+        const existsInAnyCollection = savedCollections.some((col) =>
+            col.beers.some((b) => b.id === selectedBeer.id)
+        );
+        setIsFavorited(existsInAnyCollection);
+
         handleCloseModal();
 
         // CONFIRMATION POPUP
         setConfirmationMessage(
-            `"${selectedBeer.name}" was added to "${collectionName}"!`
+            wasRemoved
+                ? `"${selectedBeer.name}" was removed from "${collectionName}"!`
+                : `"${selectedBeer.name}" was added to "${collectionName}"!`
         );
 
         setShowConfirmation(true);
-        setIsFavorited(true);
     };
 
     // Reviews handlers
@@ -457,6 +518,7 @@ function BeerInfo() {
                                     ? handleSaveEditedReview
                                     : handleAddReview
                             }
+                            className={styles.review_button}
                         />
                     </div>
                 </div>
