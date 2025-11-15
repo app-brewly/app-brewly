@@ -23,6 +23,7 @@ import Settings from "./_pages/Settings/Settings";
 import EditProfile from "./_pages/EditProfile/EditProfile";
 import TermsOfUse from "./_pages/TermsOfUse/TermsOfUse";
 import HelpSupport from "./_pages/HelpSupport/HelpSupport";
+import CreateProfile from "./_pages/CreateProfile/CreateProfile";
 
 function App() {
     return (
@@ -107,6 +108,10 @@ function App() {
                     <Route
                         path='/HelpSupport'
                         element={<HelpSupport />}
+                    />
+                    <Route
+                        path='/CreateProfile'
+                        element={<CreateProfile />}
                     />
                 </Routes>
             </Router>

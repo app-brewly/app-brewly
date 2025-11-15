@@ -11,6 +11,7 @@ export default function StepFour() {
     const handleSkip = () => {
         navigate("/AgeVerification");
     };
+    
 
     return (
         <div className={styles.page_container}>
