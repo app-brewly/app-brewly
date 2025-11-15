@@ -186,6 +186,30 @@ function BeerInfo() {
                 JSON.stringify(updatedCollections)
             );
 
+            // Update metadata dateEdited for the collection that was modified
+            const metadataKey = `collection_metadata_${trimmedName}`;
+            const metadata = localStorage.getItem(metadataKey);
+            if (metadata) {
+                const parsed = JSON.parse(metadata);
+                localStorage.setItem(
+                    metadataKey,
+                    JSON.stringify({
+                        ...parsed,
+                        dateEdited: new Date().toLocaleDateString(),
+                    })
+                );
+            } else {
+                // Create metadata if it doesn't exist
+                const now = new Date().toLocaleDateString();
+                localStorage.setItem(
+                    metadataKey,
+                    JSON.stringify({
+                        dateCreated: now,
+                        dateEdited: now,
+                    })
+                );
+            }
+
             return updatedCollections;
         });
 
@@ -249,6 +273,20 @@ function BeerInfo() {
                 "collections",
                 JSON.stringify(updatedCollections)
             );
+
+            // Update metadata dateEdited for the collection that was modified
+            const metadataKey = `collection_metadata_${collectionName}`;
+            const metadata = localStorage.getItem(metadataKey);
+            if (metadata) {
+                const parsed = JSON.parse(metadata);
+                localStorage.setItem(
+                    metadataKey,
+                    JSON.stringify({
+                        ...parsed,
+                        dateEdited: new Date().toLocaleDateString(),
+                    })
+                );
+            }
 
             return updatedCollections;
         });
@@ -434,13 +472,15 @@ function BeerInfo() {
 
                 {/* Reviews Section */}
                 <div className={styles.reviews_section}>
-                    <h3>Reviews</h3>
-                    {reviews.length === 0 && <p>No reviews yet.</p>}
+                    <h3 className={styles.reviews_title}>Reviews</h3>
+                    {reviews.length === 0 && (
+                        <p className={styles.reviews_empty}>No reviews yet.</p>
+                    )}
                     {reviews.map((review, index) => (
                         <div
                             key={index}
                             className={styles.review_item}>
-                            <p>{review}</p>
+                            <p className={styles.review_text}>{review}</p>
                             <div className={styles.review_actions}>
                                 <div
                                     className={styles.item_container}

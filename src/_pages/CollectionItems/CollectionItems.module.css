@@ -34,16 +34,65 @@
     position: absolute;
     right: 0;
     top: 10%;
+    z-index: 1000;
 }
 
 .overlay {
     width: 393px;
     height: 852px;
     position: fixed;
+    z-index: 999;
 }
 
 .button_row {
     display: flex;
     flex-direction: row;
     gap: var(--space-regular);
+}
+
+.selection_controls {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-regular);
+    padding: var(--space-regular);
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+.selection_button {
+    flex: 1;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.beer_card_wrapper_selection_mode {
+    cursor: pointer;
+}
+
+.beer_card_wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.beer_card_selected {
+    position: relative;
+    outline: var(--space-extra-small) solid var(--primary-700);
+    outline-offset: var(--space-extra-small);
+    border-radius: var(--space-small);
+}
+
+.selection_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    cursor: pointer;
+    background: transparent;
 }

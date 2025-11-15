@@ -13,39 +13,125 @@ import styles from "./CollectionItems.module.css";
 
 function CollectionItems() {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [isOptionsOpen, setIsOptionOpen] = useState(false);
+    const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+    const [isDeleteBeersModalOpen, setIsDeleteBeersModalOpen] = useState(false);
+    const [selectedBeers, setSelectedBeers] = useState([]);
+    const [isSelectionMode, setIsSelectionMode] = useState(false);
     const { collectionName } = useParams();
     const [beers, setBeers] = useState([]);
     const [collection, setCollection] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const handleKnowMore = (beerId) => {
         navigate(`/BeerInfo/${encodeURIComponent(beerId)}`);
     };
 
-    const handleOptionsOpen = () => setIsOptionOpen(true);
-    const handleEditModalClose = () => setIsEditModalOpen(false);
-    const handleDeleteModalClose = () => setIsDeleteModalOpen(false);
+    const handleOptionsOpen = () => setIsOptionsOpen(true);
+
+    const handleEditCollection = () => {
+        setIsOptionsOpen(false);
+        setIsSelectionMode(true);
+    };
+
+    const handleDeleteCollection = () => {
+        setIsOptionsOpen(false);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleConfirmDeleteCollection = () => {
+        if (!collectionName) return;
+
+        const saved = localStorage.getItem("collections");
+        if (saved) {
+            const allCollections = JSON.parse(saved);
+            const updatedCollections = allCollections.filter(
+                (c) => c.collectionName !== collectionName
+            );
+            localStorage.setItem(
+                "collections",
+                JSON.stringify(updatedCollections)
+            );
+
+            // Delete metadata
+            const metadataKey = `collection_metadata_${collectionName}`;
+            localStorage.removeItem(metadataKey);
+
+            navigate("/collections");
+        }
+    };
+
+    const handleToggleBeerSelection = (beerId) => {
+        setSelectedBeers((prev) => {
+            if (prev.includes(beerId)) {
+                return prev.filter((id) => id !== beerId);
+            } else {
+                return [...prev, beerId];
+            }
+        });
+    };
+
+    const handleDeleteSelectedBeers = () => {
+        setIsDeleteBeersModalOpen(true);
+    };
+
+    const handleConfirmDeleteBeers = () => {
+        if (!collectionName || selectedBeers.length === 0) return;
+
+        const saved = localStorage.getItem("collections");
+        if (saved) {
+            const allCollections = JSON.parse(saved);
+            const updatedCollections = allCollections.map((col) => {
+                if (col.collectionName === collectionName) {
+                    return {
+                        ...col,
+                        beers: col.beers.filter(
+                            (beer) => !selectedBeers.includes(beer.id)
+                        ),
+                    };
+                }
+                return col;
+            });
+            localStorage.setItem(
+                "collections",
+                JSON.stringify(updatedCollections)
+            );
+
+            // Update metadata dateEdited
+            const metadataKey = `collection_metadata_${collectionName}`;
+            const metadata = localStorage.getItem(metadataKey);
+            if (metadata) {
+                const parsed = JSON.parse(metadata);
+                localStorage.setItem(
+                    metadataKey,
+                    JSON.stringify({
+                        ...parsed,
+                        dateEdited: new Date().toLocaleDateString(),
+                    })
+                );
+            }
+
+            // Reload collection
+            const found = updatedCollections.find(
+                (c) => c.collectionName === collectionName
+            );
+            setCollection(found || null);
+            setSelectedBeers([]);
+            setIsSelectionMode(false);
+            setIsDeleteBeersModalOpen(false);
+        }
+    };
 
     useEffect(() => {
         const loadBeers = async () => {
             try {
-                setLoading(true);
                 const data = await fetchBeers({
                     per_page: 50,
                     page: 1,
                 });
-
                 const transformedBeers = data.map(transformBeerData);
                 setBeers(transformedBeers);
             } catch (err) {
-                console.error("Erro ao carregar cervejas:", err);
-                setError(`Erro ao carregar cervejas: ${err.message}`);
-            } finally {
-                setLoading(false);
+                // Silently fail - beers will remain empty
             }
         };
 
@@ -63,6 +149,39 @@ function CollectionItems() {
         }
     }, [collectionName]);
 
+    useEffect(() => {
+        const loadCollection = () => {
+            const saved = localStorage.getItem("collections");
+            if (saved) {
+                try {
+                    const allCollections = JSON.parse(saved);
+                    const found = allCollections.find(
+                        (c) => c.collectionName === collectionName
+                    );
+                    setCollection(found || null);
+                } catch (err) {
+                    // Silently fail
+                }
+            }
+        };
+
+        const handleStorageChange = () => {
+            loadCollection();
+        };
+
+        loadCollection();
+        window.addEventListener("storage", handleStorageChange);
+        window.addEventListener("customStorageChange", handleStorageChange);
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+            window.removeEventListener(
+                "customStorageChange",
+                handleStorageChange
+            );
+        };
+    }, [collectionName]);
+
     return (
         <div className={styles.page_container}>
             <div className={styles.page_header}>
@@ -78,58 +197,96 @@ function CollectionItems() {
             {isOptionsOpen && (
                 <div
                     className={styles.overlay}
-                    onClick={() => setIsOptionOpen(false)}>
+                    onClick={() => setIsOptionsOpen(false)}>
                     <div
                         className={styles.collections_menu}
                         onClick={(e) => e.stopPropagation()}>
                         <CollectionsMenu
-                            type='info'
-                            onInfoClick={() => navigate("/CollectionInfo")}
-                            onDeleteClick={() => setIsDeleteModalOpen(true)}
-                            onEditClick={() => setIsEditModalOpen(true)}
+                            onInfoClick={() => {
+                                setIsOptionsOpen(false);
+                                navigate(
+                                    `/CollectionInfo/${encodeURIComponent(
+                                        collectionName
+                                    )}`
+                                );
+                            }}
+                            onEditClick={() => {
+                                setIsOptionsOpen(false);
+                                handleEditCollection();
+                            }}
+                            onDeleteSelectedClick={() => {
+                                setIsOptionsOpen(false);
+                                if (selectedBeers.length > 0) {
+                                    handleDeleteSelectedBeers();
+                                }
+                            }}
+                            showDeleteSelected={selectedBeers.length > 0}
                         />
                     </div>
                 </div>
             )}
 
-            {/* DELETE MODAL */}
+            {/* DELETE COLLECTION MODAL */}
             {isDeleteModalOpen && (
                 <Modal
-                    header='Are you sure you want to delete this collection?'
-                    onClose={handleDeleteModalClose}>
+                    header='Are you sure you want to delete the entire collection?'
+                    onClose={() => setIsDeleteModalOpen(false)}>
                     <div className={styles.button_row}>
                         <Button
                             value='Cancel'
                             type='secondary'
-                            onClick={handleDeleteModalClose}
+                            onClick={() => setIsDeleteModalOpen(false)}
                         />
                         <Button
                             value='Delete'
                             type='primary'
-                            onClick={handleDeleteModalClose}
+                            onClick={handleConfirmDeleteCollection}
                         />
                     </div>
                 </Modal>
             )}
 
-            {/* EDIT MODAL */}
-            {isEditModalOpen && (
+            {/* DELETE SELECTED BEERS MODAL */}
+            {isDeleteBeersModalOpen && (
                 <Modal
                     header='Would you like to delete selected items from your collection?'
-                    onClose={handleEditModalClose}>
+                    onClose={() => setIsDeleteBeersModalOpen(false)}>
                     <div className={styles.button_row}>
                         <Button
                             value='Cancel'
                             type='secondary'
-                            onClick={handleEditModalClose}
+                            onClick={() => setIsDeleteBeersModalOpen(false)}
                         />
                         <Button
                             value='Delete'
                             type='primary'
-                            onClick={handleEditModalClose}
+                            onClick={handleConfirmDeleteBeers}
                         />
                     </div>
                 </Modal>
+            )}
+
+            {/* SELECTION MODE BUTTONS */}
+            {isSelectionMode && (
+                <div className={styles.selection_controls}>
+                    <Button
+                        value='Cancel'
+                        type='secondary'
+                        onClick={() => {
+                            setIsSelectionMode(false);
+                            setSelectedBeers([]);
+                        }}
+                        className={styles.selection_button}
+                    />
+                    <Button
+                        value={`Delete Selected (${selectedBeers.length})`}
+                        type='primary'
+                        onClick={handleDeleteSelectedBeers}
+                        className={`${styles.selection_button} ${
+                            selectedBeers.length === 0 ? styles.disabled : ""
+                        }`}
+                    />
+                </div>
             )}
 
             {/* DISPLAY BEERS */}
@@ -153,21 +310,97 @@ function CollectionItems() {
                                         const beerData = beers.find(
                                             (b) => b.id === beer.id
                                         );
+                                        const isSelected =
+                                            selectedBeers.includes(beer.id);
 
                                         return (
-                                            <BeerCard
+                                            <div
                                                 key={beer.id}
-                                                type='collection info'
-                                                beerName={beer.name}
-                                                brewery={
-                                                    beer.tagline || beer.brewery
-                                                }
-                                                beerId={beer.id}
-                                                image={beerData?.image} // ✅ FIXED
-                                                onKnowMoreClick={() =>
-                                                    handleKnowMore(beer.id)
-                                                }
-                                            />
+                                                className={`${
+                                                    styles.beer_card_wrapper
+                                                } ${
+                                                    isSelected
+                                                        ? styles.beer_card_selected
+                                                        : ""
+                                                } ${
+                                                    isSelectionMode
+                                                        ? styles.beer_card_wrapper_selection_mode
+                                                        : ""
+                                                }`}
+                                                onClick={(e) => {
+                                                    if (isSelectionMode) {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        handleToggleBeerSelection(
+                                                            beer.id
+                                                        );
+                                                    }
+                                                }}
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                }}>
+                                                {isSelectionMode && (
+                                                    <div
+                                                        className={
+                                                            styles.selection_overlay
+                                                        }
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            e.stopPropagation();
+                                                            handleToggleBeerSelection(
+                                                                beer.id
+                                                            );
+                                                        }}
+                                                    />
+                                                )}
+                                                <div
+                                                    style={{
+                                                        opacity:
+                                                            isSelectionMode &&
+                                                            !isSelected
+                                                                ? 0.5
+                                                                : 1,
+                                                        pointerEvents:
+                                                            isSelectionMode
+                                                                ? "none"
+                                                                : "auto",
+                                                    }}>
+                                                    <BeerCard
+                                                        type='collection info'
+                                                        beerName={beer.name}
+                                                        brewery={
+                                                            beer.tagline ||
+                                                            beer.brewery
+                                                        }
+                                                        beerId={beer.id}
+                                                        image={
+                                                            beer.image ||
+                                                            beerData?.image
+                                                        }
+                                                        onKnowMoreClick={
+                                                            isSelectionMode
+                                                                ? (e) => {
+                                                                      if (e) {
+                                                                          e.preventDefault();
+                                                                          e.stopPropagation();
+                                                                      }
+                                                                      handleToggleBeerSelection(
+                                                                          beer.id
+                                                                      );
+                                                                  }
+                                                                : (e) => {
+                                                                      if (e) {
+                                                                          e.stopPropagation();
+                                                                      }
+                                                                      handleKnowMore(
+                                                                          beer.id
+                                                                      );
+                                                                  }
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
                                         );
                                     })}
                                 </div>

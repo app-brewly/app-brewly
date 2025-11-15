@@ -82,7 +82,7 @@ function App() {
                         element={<Collections />}
                     />
                     <Route
-                        path='/CollectionInfo'
+                        path='/CollectionInfo/:collectionName?'
                         element={<CollectionInfo />}
                     />
                     <Route

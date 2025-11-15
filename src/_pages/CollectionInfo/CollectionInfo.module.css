@@ -13,10 +13,31 @@
     position: absolute;
     right: 0;
     top: 10%;
+    z-index: 1000;
 }
 
 .overlay {
     width: 393px;
     height: 852px;
     position: fixed;
+    z-index: 999;
+}
+
+.page_header {
+    width: 100%;
+}
+
+.page_content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 var(--space-regular);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.button_row {
+    display: flex;
+    padding-top: var(--space-regular);
+    flex-direction: row;
+    gap: var(--space-regular);
 }

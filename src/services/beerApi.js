@@ -57,12 +57,9 @@ export const fetchBeers = async (params = {}) => {
             queryParams.toString() ? `?${queryParams.toString()}` : ""
         }`;
 
-        console.log("Fetching beers from:", url);
         const data = await fetchAPI(url);
-        console.log("Received", data.length, "beers from API");
         return data;
     } catch (error) {
-        console.error("Error fetching beers:", error);
         throw error;
     }
 };
@@ -91,7 +88,6 @@ export const fetchBeerById = async (id) => {
 
         throw new Error(`Beer with ID ${id} not found`);
     } catch (error) {
-        console.error("Error fetching beer by ID:", error);
         throw error;
     }
 };

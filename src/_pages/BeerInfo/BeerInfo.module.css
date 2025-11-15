@@ -74,7 +74,7 @@
     color: var(--black-300);
     font-family: var(--font-family);
     font-size: var(--font-size-regular);
-    margin-top: -20px;
+    margin-top: var(--space-regular);
 }
 
 .page_image {
@@ -99,20 +99,20 @@
 .page_spectitle {
     color: var(--black-500);
     font-family: var(--font-family);
-    font-size: var(--font-regular);
+    font-size: var(--font-size-regular);
     font-weight: var(--font-weight-bold);
     text-align: start;
     width: 100%;
-    margin-top: -10px;
+    margin-top: var(--space-small);
 }
 
 .page_spectext {
     color: var(--black-500);
     font-family: var(--font-family);
-    font-size: var(--font-regular);
+    font-size: var(--font-size-regular);
     text-align: start;
     width: 100%;
-    margin-top: -20px;
+    margin-top: var(--space-regular);
 }
 
 .page_footer {
@@ -177,15 +177,21 @@
     box-sizing: border-box;
 }
 
-.reviews_section h3,
-.reviews_section p {
+.reviews_title {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
     margin: 0 0 var(--space-small) 0;
 }
 
-.review_item p {
+.reviews_empty {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 var(--space-small) 0;
+}
+
+.review_text {
     width: 100%;
     max-width: 100%;
     overflow-wrap: break-word;

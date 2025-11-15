@@ -47,7 +47,10 @@ function BeerCard({
                 </div>
             )}
             {type === "collections" && (
-                <div className={styles.collection_container}>
+                <div
+                    className={styles.collection_container}
+                    onClick={onCollectionClick}
+                    style={{ cursor: "pointer" }}>
                     <img
                         src={image || beercan}
                         alt='Beer can'
@@ -79,9 +82,14 @@ function BeerCard({
                 </div>
             )}
             {type === "scroll" && (
-                <div className={styles.scroll_container}>
+                <div
+                    className={styles.scroll_container}
+                    onClick={onCollectionClick}
+                    style={{
+                        cursor: onCollectionClick ? "pointer" : "default",
+                    }}>
                     <img
-                        src={beercan}
+                        src={image || beercan}
                         alt='Beer can'
                         className={styles.scroll_image}
                     />
