@@ -1,13 +1,20 @@
 import beercan from "../../assets/beercan.png";
 import styles from "./CollectionInfoBox.module.css";
 
-function CollectionInfoBox({ name, dateCreated, dateEdited, itemNumbers }) {
+function CollectionInfoBox({
+    name,
+    dateCreated,
+    dateEdited,
+    itemNumbers,
+    image,
+}) {
     return (
         <div className={styles.collection_info_container}>
             <div className={styles.img_container}>
                 <img
                     className={styles.collection_img}
-                    src={beercan}></img>
+                    src={image || beercan}
+                    alt={name}></img>
             </div>
             <hr className={styles.divider} />
             <div className={styles.text_info_container}>

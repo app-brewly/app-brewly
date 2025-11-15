@@ -3,6 +3,7 @@ import NavBar from "../../_ui/NavBar/NavBar";
 import ProfileCover from "../../_ui/ProfileCover/ProfileCover";
 import Menu from "../../_ui/Menu/Menu";
 import ScrollList from "../../_ui/ScrollList/ScrollList";
+import BeerCard from "../../_ui/BeerCard/BeerCard";
 import styles from "./Profile.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -17,6 +18,7 @@ function Profile() {
         location: "",
         profileImage: "./Image_Placeholder_.png",
     });
+    const [collections, setCollections] = useState([]);
 
     useEffect(() => {
         const savedProfile = localStorage.getItem(PROFILE_STORAGE_KEY);
@@ -31,13 +33,57 @@ function Profile() {
                         parsed.profileImage || "./Image_Placeholder_.png",
                 });
             } catch (error) {
-                console.error("Error loading profile data:", error);
+                // Silently fail
             }
         }
     }, []);
 
+    // Load collections
+    useEffect(() => {
+        const loadCollections = () => {
+            const saved = localStorage.getItem("collections");
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    setCollections(parsed || []);
+                } catch (error) {
+                    setCollections([]);
+                }
+            } else {
+                setCollections([]);
+            }
+        };
+
+        loadCollections();
+
+        // Listen for storage changes
+        const handleStorageChange = () => {
+            loadCollections();
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+        window.addEventListener("customStorageChange", handleStorageChange);
+        document.addEventListener("visibilitychange", () => {
+            if (!document.hidden) {
+                loadCollections();
+            }
+        });
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+            window.removeEventListener(
+                "customStorageChange",
+                handleStorageChange
+            );
+        };
+    }, []);
+
     const handleCollectionClick = () => {
         navigate("/collections");
+    };
+
+    const handleCollectionItemClick = (collectionName) => {
+        navigate(`/CollectionItems/${encodeURIComponent(collectionName)}`);
     };
 
     return (
@@ -56,21 +102,54 @@ function Profile() {
                     location={profileData.location}
                 />
 
-                <ScrollList
-                    section_name='All Collections'
-                    type='collections'
-                    onItemClick={handleCollectionClick}
-                />
-                <ScrollList
-                    section_name='Wishlist'
-                    type='wishlist'
-                    onItemClick={handleCollectionClick}
-                />
-                <ScrollList
-                    section_name='Reviews'
-                    type='reviews'
-                    onItemClick={handleCollectionClick}
-                />
+                {/* Collection Cards Grid */}
+                {collections.length > 0 && (
+                    <div className={styles.collections_section}>
+                        <h2 className={styles.section_title}>My Collections</h2>
+                        <div className={styles.page_column}>
+                            {Array.from({
+                                length: Math.ceil(collections.length / 2),
+                            }).map((_, rowIndex) => {
+                                const startIndex = rowIndex * 2;
+                                const rowCollections = collections.slice(
+                                    startIndex,
+                                    startIndex + 2
+                                );
+
+                                return (
+                                    <div
+                                        key={rowIndex}
+                                        className={styles.page_row}>
+                                        {rowCollections.map((col, index) => {
+                                            // Get image from first beer in collection
+                                            const firstBeerImage =
+                                                col.beers &&
+                                                col.beers.length > 0
+                                                    ? col.beers[0].image
+                                                    : null;
+
+                                            return (
+                                                <BeerCard
+                                                    key={index}
+                                                    type='collections'
+                                                    collection_name={
+                                                        col.collectionName
+                                                    }
+                                                    image={firstBeerImage}
+                                                    onCollectionClick={() =>
+                                                        handleCollectionItemClick(
+                                                            col.collectionName
+                                                        )
+                                                    }
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
             </div>
 
             <Menu />

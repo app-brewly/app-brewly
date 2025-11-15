@@ -74,15 +74,30 @@ function BeerInfo() {
     useEffect(() => {
         if (!beer) return;
 
-        const savedCollections =
-            JSON.parse(localStorage.getItem("collections")) || [];
+        const checkFavoriteStatus = () => {
+            const savedCollections =
+                JSON.parse(localStorage.getItem("collections")) || [];
 
-        // Check if this beer is in any collection
-        const exists = savedCollections.some((col) =>
-            col.beers.some((b) => b.id === beer.id)
-        );
+            // Check if this beer is in any collection
+            const exists = savedCollections.some((col) =>
+                col.beers.some((b) => b.id === beer.id)
+            );
 
-        setIsFavorited(exists);
+            setIsFavorited(exists);
+        };
+
+        checkFavoriteStatus();
+
+        // Listen for storage changes to update favorite status
+        const handleStorageChange = () => {
+            checkFavoriteStatus();
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
     }, [beer, collections]);
 
     // Load reviews from localStorage
@@ -94,13 +109,32 @@ function BeerInfo() {
     const handleFav = () => {
         setSelectedBeer(beer);
         const saved = localStorage.getItem("collections");
-        if (saved) setCollections(JSON.parse(saved));
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            setCollections(parsed);
+
+            // Update favorite state when opening modal
+            const existsInAnyCollection = parsed.some((col) =>
+                col.beers.some((b) => b.id === beer.id)
+            );
+            setIsFavorited(existsInAnyCollection);
+        }
         setIsCollectionModalOpen(true);
     };
 
     const handleCloseModal = () => {
         setIsCollectionModalOpen(false);
         setIsCreateCollectionOpen(false);
+
+        // Update favorite state when closing modal
+        if (beer) {
+            const savedCollections =
+                JSON.parse(localStorage.getItem("collections")) || [];
+            const existsInAnyCollection = savedCollections.some((col) =>
+                col.beers.some((b) => b.id === beer.id)
+            );
+            setIsFavorited(existsInAnyCollection);
+        }
     };
 
     const handleCreateCollection = () => {
@@ -151,10 +185,41 @@ function BeerInfo() {
                 "collections",
                 JSON.stringify(updatedCollections)
             );
-            setIsFavorited(true);
+
+            // Update metadata dateEdited for the collection that was modified
+            const metadataKey = `collection_metadata_${trimmedName}`;
+            const metadata = localStorage.getItem(metadataKey);
+            if (metadata) {
+                const parsed = JSON.parse(metadata);
+                localStorage.setItem(
+                    metadataKey,
+                    JSON.stringify({
+                        ...parsed,
+                        dateEdited: new Date().toLocaleDateString(),
+                    })
+                );
+            } else {
+                // Create metadata if it doesn't exist
+                const now = new Date().toLocaleDateString();
+                localStorage.setItem(
+                    metadataKey,
+                    JSON.stringify({
+                        dateCreated: now,
+                        dateEdited: now,
+                    })
+                );
+            }
 
             return updatedCollections;
         });
+
+        // Update favorite state based on whether beer is in any collection
+        const savedCollections =
+            JSON.parse(localStorage.getItem("collections")) || [];
+        const existsInAnyCollection = savedCollections.some((col) =>
+            col.beers.some((b) => b.id === selectedBeer.id)
+        );
+        setIsFavorited(existsInAnyCollection);
 
         setNewCollectionName("");
         handleCloseModal();
@@ -170,6 +235,7 @@ function BeerInfo() {
         if (!selectedBeer) return;
 
         let updatedCollections = [];
+        let wasRemoved = false;
 
         setCollections((prev) => {
             updatedCollections = prev.map((col) => {
@@ -177,7 +243,17 @@ function BeerInfo() {
                     const beerExists = col.beers.some(
                         (b) => b.id === selectedBeer.id
                     );
-                    if (!beerExists) {
+                    if (beerExists) {
+                        // Remove beer from collection
+                        wasRemoved = true;
+                        return {
+                            ...col,
+                            beers: col.beers.filter(
+                                (b) => b.id !== selectedBeer.id
+                            ),
+                        };
+                    } else {
+                        // Add beer to collection
                         return {
                             ...col,
                             beers: [
@@ -198,18 +274,41 @@ function BeerInfo() {
                 JSON.stringify(updatedCollections)
             );
 
+            // Update metadata dateEdited for the collection that was modified
+            const metadataKey = `collection_metadata_${collectionName}`;
+            const metadata = localStorage.getItem(metadataKey);
+            if (metadata) {
+                const parsed = JSON.parse(metadata);
+                localStorage.setItem(
+                    metadataKey,
+                    JSON.stringify({
+                        ...parsed,
+                        dateEdited: new Date().toLocaleDateString(),
+                    })
+                );
+            }
+
             return updatedCollections;
         });
+
+        // Update favorite state based on whether beer is in any collection
+        const savedCollections =
+            JSON.parse(localStorage.getItem("collections")) || [];
+        const existsInAnyCollection = savedCollections.some((col) =>
+            col.beers.some((b) => b.id === selectedBeer.id)
+        );
+        setIsFavorited(existsInAnyCollection);
 
         handleCloseModal();
 
         // CONFIRMATION POPUP
         setConfirmationMessage(
-            `"${selectedBeer.name}" was added to "${collectionName}"!`
+            wasRemoved
+                ? `"${selectedBeer.name}" was removed from "${collectionName}"!`
+                : `"${selectedBeer.name}" was added to "${collectionName}"!`
         );
 
         setShowConfirmation(true);
-        setIsFavorited(true);
     };
 
     // Reviews handlers
@@ -354,11 +453,13 @@ function BeerInfo() {
             )}
 
             <div className={styles.page_content}>
-                <img
-                    className={styles.page_image}
-                    src={beer.image || beercan}
-                    alt={`${beer.name} beer`}
-                />
+                <div className={styles.page_image_container}>
+                    <img
+                        className={styles.page_image}
+                        src={beer.image || beercan}
+                        alt={`${beer.name} beer`}
+                    />
+                </div>
                 <BeerSpecs
                     abv={beer.abv}
                     ibu={beer.ibu}
@@ -371,13 +472,15 @@ function BeerInfo() {
 
                 {/* Reviews Section */}
                 <div className={styles.reviews_section}>
-                    <h3>Reviews</h3>
-                    {reviews.length === 0 && <p>No reviews yet.</p>}
+                    <h3 className={styles.reviews_title}>Reviews</h3>
+                    {reviews.length === 0 && (
+                        <p className={styles.reviews_empty}>No reviews yet.</p>
+                    )}
                     {reviews.map((review, index) => (
                         <div
                             key={index}
                             className={styles.review_item}>
-                            <p>{review}</p>
+                            <p className={styles.review_text}>{review}</p>
                             <div className={styles.review_actions}>
                                 <div
                                     className={styles.item_container}
@@ -455,6 +558,7 @@ function BeerInfo() {
                                     ? handleSaveEditedReview
                                     : handleAddReview
                             }
+                            className={styles.review_button}
                         />
                     </div>
                 </div>

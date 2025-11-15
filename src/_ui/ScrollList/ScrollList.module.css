@@ -45,12 +45,6 @@
     color: var(--black-500);
 }
 
-.section_name {
-    padding-left: var(--space-small);
-    padding-right: var(--space-small);
-    text-align: left;
-}
-
 .section_container {
     display: flex;
     flex-direction: column;
@@ -63,4 +57,10 @@
     width: 100%;
     padding: 0 var(--space-regular);
     margin-left: var(--space-regular);
+}
+
+.empty_message {
+    padding: var(--space-regular);
+    color: var(--black-300);
+    font-style: italic;
 }

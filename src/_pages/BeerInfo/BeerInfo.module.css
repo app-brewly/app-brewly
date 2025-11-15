@@ -7,6 +7,7 @@
     height: 852px;
     margin: 0px;
     padding: 0 var(--space-regular);
+    box-sizing: border-box;
 }
 
 .page_header {
@@ -31,17 +32,26 @@
     gap: var(--space-regular);
     flex-grow: 1;
     overflow-y: auto;
+
     min-height: 0;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
     align-items: center;
+}
+
+.page_image_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .page_beerheader {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 62px;
+
     align-items: center;
     width: 100%;
 }
@@ -64,12 +74,17 @@
     color: var(--black-300);
     font-family: var(--font-family);
     font-size: var(--font-size-regular);
-    margin-top: -20px;
+    margin-top: var(--space-regular);
 }
 
 .page_image {
-    height: 245px;
+    max-width: 100%;
+    max-height: 400px;
     width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
 
 .page_tags {
@@ -84,20 +99,20 @@
 .page_spectitle {
     color: var(--black-500);
     font-family: var(--font-family);
-    font-size: var(--font-regular);
+    font-size: var(--font-size-regular);
     font-weight: var(--font-weight-bold);
     text-align: start;
     width: 100%;
-    margin-top: -10px;
+    margin-top: var(--space-small);
 }
 
 .page_spectext {
     color: var(--black-500);
     font-family: var(--font-family);
-    font-size: var(--font-regular);
+    font-size: var(--font-size-regular);
     text-align: start;
     width: 100%;
-    margin-top: -20px;
+    margin-top: var(--space-regular);
 }
 
 .page_footer {
@@ -112,6 +127,9 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-regular);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .review_actions {
@@ -120,12 +138,21 @@
     gap: var(--space-regular);
     margin-bottom: var(--space-regular);
     flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .review_item {
     border: 2px solid var(--primary-100);
     padding: var(--space-regular);
     border-radius: var(--space-regular);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .edit_icon {
@@ -145,12 +172,49 @@
     font-weight: var(--font-weight-bold);
     border-radius: var(--space-extra-small);
     border: 2px solid var(--primary-500);
+    flex-shrink: 1;
+    min-width: 0;
+    box-sizing: border-box;
 }
+
+.reviews_title {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 var(--space-small) 0;
+}
+
+.reviews_empty {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 var(--space-small) 0;
+}
+
+.review_text {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    box-sizing: border-box;
+    margin: 0;
+}
+
 .review_input {
     margin-top: var(--space-regular);
     display: flex;
     flex-direction: column;
     gap: var(--space-regular);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.review_button {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
 }
 
 .button_row {

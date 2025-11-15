@@ -5,6 +5,7 @@
     margin: 0;
     padding: 0;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
 }
 
@@ -43,11 +44,11 @@
     min-width: 0;
 }
 
-.specs_type .specs_text {
+.specs_type_text {
     overflow-wrap: anywhere;
 }
 
-.specs_item > .specs_text {
+.specs_item_text {
     min-width: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -56,8 +57,7 @@
     text-align: right;
 }
 
-.specs_icon,
-.specs_item svg {
+.specs_icon {
     max-width: 28px;
     height: auto;
 }
@@ -65,7 +65,7 @@
 .divider {
     border: none;
     border-bottom: 1px solid var(--black-300);
-    margin: 20px 0;
+    margin: var(--space-regular) 0;
     width: 100%;
     box-sizing: border-box;
 }
