@@ -3,15 +3,32 @@ const API_BASE_URL = "https://brewbuddy.dev/api/v1/beers";
 
 // Fetch API
 const fetchAPI = async (url) => {
-    const response = await fetch(url, {
-        headers: { Accept: "application/json" },
-    });
+    try {
+        const response = await fetch(url, {
+            headers: { Accept: "application/json" },
+        });
 
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Validate that we got an array
+        if (!Array.isArray(data)) {
+            throw new Error("API response is not an array");
+        }
+
+        return data;
+    } catch (error) {
+        // Handle network errors, CORS errors, etc.
+        if (error.name === "TypeError" && error.message.includes("fetch")) {
+            throw new Error(
+                "Network error: Unable to reach the API. Please check your internet connection or CORS settings."
+            );
+        }
+        throw error;
     }
-
-    return await response.json();
 };
 
 /**
@@ -40,7 +57,10 @@ export const fetchBeers = async (params = {}) => {
             queryParams.toString() ? `?${queryParams.toString()}` : ""
         }`;
 
-        return await fetchAPI(url);
+        console.log("Fetching beers from:", url);
+        const data = await fetchAPI(url);
+        console.log("Received", data.length, "beers from API");
+        return data;
     } catch (error) {
         console.error("Error fetching beers:", error);
         throw error;
