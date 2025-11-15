@@ -354,11 +354,13 @@ function BeerInfo() {
             )}
 
             <div className={styles.page_content}>
-                <img
-                    className={styles.page_image}
-                    src={beer.image || beercan}
-                    alt={`${beer.name} beer`}
-                />
+                <div className={styles.page_image_container}>
+                    <img
+                        className={styles.page_image}
+                        src={beer.image || beercan}
+                        alt={`${beer.name} beer`}
+                    />
+                </div>
                 <BeerSpecs
                     abv={beer.abv}
                     ibu={beer.ibu}
