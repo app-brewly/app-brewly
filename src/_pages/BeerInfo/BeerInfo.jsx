@@ -26,11 +26,16 @@ function BeerInfo() {
     const [collections, setCollections] = useState([]);
     const [newCollectionName, setNewCollectionName] = useState("");
     const [selectedBeer, setSelectedBeer] = useState(null);
+    const [confirmationMessage, setConfirmationMessage] = useState("");
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     // Reviews
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState("");
     const [editingIndex, setEditingIndex] = useState(null);
+
+    //Favorites
+    const [isFavorited, setIsFavorited] = useState(false);
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -64,6 +69,22 @@ function BeerInfo() {
         if (saved) setCollections(JSON.parse(saved));
     }, []);
 
+    //loading the favorite fill state
+
+    useEffect(() => {
+        if (!beer) return;
+
+        const savedCollections =
+            JSON.parse(localStorage.getItem("collections")) || [];
+
+        // Check if this beer is in any collection
+        const exists = savedCollections.some((col) =>
+            col.beers.some((b) => b.id === beer.id)
+        );
+
+        setIsFavorited(exists);
+    }, [beer, collections]);
+
     // Load reviews from localStorage
     useEffect(() => {
         const savedReviews = localStorage.getItem(`reviews_${id}`);
@@ -86,26 +107,30 @@ function BeerInfo() {
         setIsCollectionModalOpen(false);
         setIsCreateCollectionOpen(true);
     };
-
     const handleSaveNewCollection = () => {
         if (!newCollectionName.trim() || !selectedBeer) return;
 
         const trimmedName = newCollectionName.trim();
+        let updatedCollections = [];
+
         setCollections((prev) => {
             const existing = prev.find(
                 (c) =>
                     c.collectionName.toLowerCase() === trimmedName.toLowerCase()
             );
-            let updatedCollections;
+
             if (existing) {
                 const beerExists = existing.beers.some(
                     (b) => b.id === selectedBeer.id
                 );
-                if (!beerExists)
+
+                if (!beerExists) {
                     existing.beers.push({
                         id: selectedBeer.id,
                         name: selectedBeer.name,
                     });
+                }
+
                 updatedCollections = [...prev];
             } else {
                 updatedCollections = [
@@ -113,25 +138,41 @@ function BeerInfo() {
                     {
                         collectionName: trimmedName,
                         beers: [
-                            { id: selectedBeer.id, name: selectedBeer.name },
+                            {
+                                id: selectedBeer.id,
+                                name: selectedBeer.name,
+                            },
                         ],
                     },
                 ];
             }
+
             localStorage.setItem(
                 "collections",
                 JSON.stringify(updatedCollections)
             );
+            setIsFavorited(true);
+
             return updatedCollections;
         });
+
         setNewCollectionName("");
-        setTimeout(() => handleCloseModal(), 0);
+        handleCloseModal();
+
+        //confirmation popup
+        setConfirmationMessage(
+            `Collection "${trimmedName}" has been created and your beer was added!`
+        );
+        setShowConfirmation(true);
     };
 
     const handleAddToExistingCollection = (collectionName) => {
         if (!selectedBeer) return;
+
+        let updatedCollections = [];
+
         setCollections((prev) => {
-            const updatedCollections = prev.map((col) => {
+            updatedCollections = prev.map((col) => {
                 if (col.collectionName === collectionName) {
                     const beerExists = col.beers.some(
                         (b) => b.id === selectedBeer.id
@@ -151,13 +192,24 @@ function BeerInfo() {
                 }
                 return col;
             });
+
             localStorage.setItem(
                 "collections",
                 JSON.stringify(updatedCollections)
             );
+
             return updatedCollections;
         });
+
         handleCloseModal();
+
+        // CONFIRMATION POPUP
+        setConfirmationMessage(
+            `"${selectedBeer.name}" was added to "${collectionName}"!`
+        );
+
+        setShowConfirmation(true);
+        setIsFavorited(true);
     };
 
     // Reviews handlers
@@ -240,7 +292,10 @@ function BeerInfo() {
                         {beer.tagline || beer.brewery}
                     </p>
                 </div>
-                <ButtonFav onClick={handleFav} />
+                <ButtonFav
+                    onClick={handleFav}
+                    isFavorited={isFavorited}
+                />
             </div>
 
             {/* Collections Modals */}
@@ -252,17 +307,24 @@ function BeerInfo() {
                         type='button'
                         onClick={handleCreateCollection}
                     />
-                    {collections.map((col, idx) => (
-                        <CollectionCard
-                            key={idx}
-                            collection_name={col.collectionName}
-                            onClick={() =>
-                                handleAddToExistingCollection(
-                                    col.collectionName
-                                )
-                            }
-                        />
-                    ))}
+                    {collections.map((col, index) => {
+                        const beerExists = col.beers.some(
+                            (b) => b.id === selectedBeer?.id
+                        );
+
+                        return (
+                            <CollectionCard
+                                key={index}
+                                collection_name={col.collectionName}
+                                isInCollection={beerExists}
+                                onClick={() =>
+                                    handleAddToExistingCollection(
+                                        col.collectionName
+                                    )
+                                }
+                            />
+                        );
+                    })}
                 </Modal>
             )}
 
@@ -397,6 +459,17 @@ function BeerInfo() {
                     </div>
                 </div>
             </div>
+            {showConfirmation && (
+                <Modal
+                    header={confirmationMessage}
+                    onClose={() => setShowConfirmation(false)}>
+                    <Button
+                        value='OK'
+                        type='primary'
+                        onClick={() => setShowConfirmation(false)}
+                    />
+                </Modal>
+            )}
 
             <Menu />
         </div>

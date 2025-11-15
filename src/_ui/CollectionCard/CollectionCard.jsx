@@ -2,9 +2,12 @@ import CreateCollection from "../CreateCollection/CreateCollection";
 import styles from "./CollectionCard.module.css";
 import beercan from "../../assets/beercan.png";
 
-function CollectionCard({ collection_name, onClick }) {
+function CollectionCard({ collection_name, onClick, isInCollection }) {
     return (
-        <div className={styles.card_container}>
+        <div
+            className={`${styles.card_container} ${
+                isInCollection ? styles.selected : ""
+            }`}>
             <div className={styles.collection_img_container}>
                 <img
                     src={beercan}
@@ -17,11 +20,19 @@ function CollectionCard({ collection_name, onClick }) {
 
             <div className={styles.collection_card_container}>
                 <div className={styles.collection_button}>
-                    <CreateCollection
-                        type='small'
-                        onClick={onClick}
-                        value='Add'
-                    />
+                    {isInCollection ? (
+                        <CreateCollection
+                            type='saved'
+                            onClick={onClick}
+                            value='Added'
+                        />
+                    ) : (
+                        <CreateCollection
+                            type='small'
+                            onClick={onClick}
+                            value='Added'
+                        />
+                    )}
                 </div>
             </div>
         </div>
