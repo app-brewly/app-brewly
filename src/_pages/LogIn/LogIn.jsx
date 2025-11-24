@@ -9,6 +9,18 @@ import StatusBar from "../../_ui/StatusBar/StatusBar";
 import Modal from "../../_ui/Modal/Modal";
 
 const PROFILE_STORAGE_KEY = "brewly_user_profile";
+// --- Create a default test account if none exists ---
+const DEFAULT_TEST_USER = {
+    email: "test@brewly.com",
+    password: "test123",
+};
+
+if (!localStorage.getItem(PROFILE_STORAGE_KEY)) {
+    localStorage.setItem(
+        PROFILE_STORAGE_KEY,
+        JSON.stringify(DEFAULT_TEST_USER)
+    );
+}
 
 function LogIn() {
     const navigate = useNavigate();
@@ -112,8 +124,7 @@ function LogIn() {
             {isLoginErrorModalOpen && (
                 <Modal
                     header='Login error'
-                    onClose={handleCloseLoginErrorModal}
-                >
+                    onClose={handleCloseLoginErrorModal}>
                     <p>email or password was not found</p>
                     <Button
                         value='Okay'
